@@ -7,7 +7,7 @@
 
 baseURL = 'https://isaaclins.com/ipa'
 languageCode = 'de-ch'
-title = 'IPA Dokumentation'
+title = 'Individuelle Praktische Arbeit von Isaac Manuel Lins'
 
 # ============================================================================
 # Build Settings
@@ -135,9 +135,9 @@ disableKinds = ['RSS']
 [params]
   # IPA Metadata - Pflichtfelder
   autor = 'Isaac Lins'
-  thema = 'IPA Dokumentation Titel'
+  thema = 'Schichtplanungs CLI für TDR'
   datumVon = '09.03.2026'
-  datumBis = '27.03.2026'
+  datumBis = '23.03.2026'
   
   # Beteiligte Personen
   hauptexperte = 'Hauptexperte Name'
