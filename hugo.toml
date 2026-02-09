@@ -107,6 +107,7 @@ disableKinds = ['RSS']
 [params]
   # IPA Metadata - Pflichtfelder
   thema = 'Schichtplanungs CLI für TDR'
+  description = 'IPA von Isaac Manuel Lins'
   autor = 'Isaac Manuel Lins'
   firma = 'Swisscom (Schweiz) AG'
   abteilung = 'SCS-B2B-BIS-NSY-TDR-CYD'
