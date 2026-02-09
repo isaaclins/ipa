@@ -349,7 +349,7 @@ blockquote {
   max-width: 700px;
 }
 
-.titelblatt-header {
+.titelblatt-subtitle {
   margin-bottom: var(--spacing-3xl);
 }
 
@@ -357,7 +357,6 @@ blockquote {
   font-size: var(--font-size-xl);
   font-weight: 400;
   color: var(--color-text-light);
-  text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: var(--spacing-sm);
 }
