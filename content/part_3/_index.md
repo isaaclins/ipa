@@ -1,6 +1,6 @@
 ---
-title: "Teil 3: Schluss"
-description: "Abschluss, Testing und Fazit"
+title: "Glossar"
+description: ""
 weight: 3
 chapter: true
 ---

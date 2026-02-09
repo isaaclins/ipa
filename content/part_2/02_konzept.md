@@ -34,7 +34,7 @@ flowchart TB
     BL --> Cache
 {{< /diagram >}}
 
-{{< figure src="/images/architecture.png" caption="Systemarchitektur im Detail" >}}
+{{< figure src="/images/image.png" caption="Systemarchitektur im Detail" >}}
 
 ## Technologieentscheide
 
