@@ -1,5 +1,5 @@
 ---
-title: "Teil 1: Einleitung"
+title: "Einleitung"
 description: "Einführung und Projektübersicht"
 weight: 1
 chapter: true
