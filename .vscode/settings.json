@@ -1,6 +1,8 @@
 {
   "ltex.language": "de-CH",
   "latex-workshop.latex.outDir": "%TMPDIR%",
+  "latex-workshop.rootDir": "${workspaceFolder}/src",
+  "latex-workshop.latex.rootFile": "index.tex",
   "latex-workshop.latex.recipe.default": "tectonic",
   "latex-workshop.latex.recipes": [
     {
@@ -18,7 +20,9 @@
         "-X",
         "build"
       ],
-      "env": {}
+      "env": {
+        "PATH": "/opt/homebrew/bin:/usr/local/bin:/Library/TeX/texbin:${env:PATH}"
+      }
     }
   ]
 }
