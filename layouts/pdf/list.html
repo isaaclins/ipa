@@ -1,8 +1,13 @@
 {{- /*
-  PDF Layout - Full Document for Print
+  PDF Layout - Full Document for Browser Print
   
   This layout combines ALL content into a single printable HTML document.
-  Used as input for Pandoc PDF generation.
+  Use browser's File > Print (Ctrl+P / Cmd+P) to save as PDF.
+  
+  Features:
+  - Mermaid diagrams render before print
+  - Print button waits for all content to load
+  - Images fully supported
   
   Structure:
   1. Titelblatt (Title Page)
@@ -10,8 +15,6 @@
   3. All Parts/Chapters (numbered)
   4. Arbeitsjournal
   5. Glossar
-  
-  Numbering is handled via loop indices, no manual weights needed.
 */ -}}
 
 <!DOCTYPE html>
@@ -20,10 +23,71 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ .Site.Params.thema | default .Site.Title }} - PDF</title>
-  <link rel="stylesheet" href="{{ "css/pdf.css" | absURL }}">
   <link rel="stylesheet" href="{{ "css/main.css" | absURL }}">
+  <link rel="stylesheet" href="{{ "css/pdf.css" | absURL }}">
+  
+  {{/* Mermaid.js for diagram rendering */}}
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  
+  <style>
+    /* Print button - hidden when printing */
+    .print-controls {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    
+    .print-btn {
+      background: #1a365d;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: all 0.2s;
+    }
+    
+    .print-btn:hover {
+      background: #2a4a7f;
+      transform: translateY(-1px);
+    }
+    
+    .print-btn:disabled {
+      background: #718096;
+      cursor: wait;
+    }
+    
+    .print-status {
+      background: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    @media print {
+      .print-controls {
+        display: none !important;
+      }
+    }
+  </style>
 </head>
 <body class="pdf-document">
+
+{{/* Print Controls */}}
+<div class="print-controls">
+  <span class="print-status" id="printStatus">Diagramme werden geladen...</span>
+  <button class="print-btn" id="printBtn" disabled onclick="window.print()">
+    📄 Als PDF speichern
+  </button>
+</div>
 
 {{/* ========== TITELBLATT ========== */}}
 <section id="titelblatt" class="titelblatt pdf-section">
@@ -192,6 +256,59 @@
   </div>
 </section>
 {{- end -}}
+
+{{/* ========== MERMAID INITIALIZATION & PRINT READY ========== */}}
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+  const printBtn = document.getElementById('printBtn');
+  const printStatus = document.getElementById('printStatus');
+  
+  // Initialize Mermaid
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'default',
+    securityLevel: 'loose',
+    flowchart: { useMaxWidth: true, htmlLabels: true },
+    sequence: { useMaxWidth: true },
+    gantt: { useMaxWidth: true }
+  });
+  
+  try {
+    // Find all mermaid diagrams and render them
+    const diagrams = document.querySelectorAll('.mermaid');
+    
+    if (diagrams.length > 0) {
+      printStatus.textContent = `Rendere ${diagrams.length} Diagramm(e)...`;
+      await mermaid.run({ nodes: diagrams });
+    }
+    
+    // Wait for all images to load
+    const images = document.querySelectorAll('img');
+    if (images.length > 0) {
+      printStatus.textContent = `Lade ${images.length} Bild(er)...`;
+      await Promise.all(
+        Array.from(images)
+          .filter(img => !img.complete)
+          .map(img => new Promise(resolve => {
+            img.onload = resolve;
+            img.onerror = resolve;
+          }))
+      );
+    }
+    
+    // All ready
+    printStatus.textContent = '✓ Bereit zum Drucken';
+    printStatus.style.background = '#c6f6d5';
+    printBtn.disabled = false;
+    
+  } catch (error) {
+    console.error('Rendering error:', error);
+    printStatus.textContent = '⚠ Fehler - trotzdem drucken möglich';
+    printStatus.style.background = '#fed7d7';
+    printBtn.disabled = false;
+  }
+});
+</script>
 
 </body>
 </html>

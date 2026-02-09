@@ -437,9 +437,22 @@ figcaption {
 }
 
 /* Mermaid diagrams */
+pre.mermaid,
 .mermaid {
   background: #fff;
   padding: 0.5cm;
+  color: #000;
+  font-family: inherit;
+  line-height: inherit;
+  white-space: normal;
+  overflow: visible;
+}
+
+/* Ensure SVG diagrams print properly */
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+  page-break-inside: avoid;
 }
 
 /* ============================================================================

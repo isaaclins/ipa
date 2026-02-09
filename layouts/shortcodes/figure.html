@@ -40,9 +40,16 @@
 {{- $height := .Get "height" -}}
 {{- $class := .Get "class" | default "" -}}
 
+{{- /* Build proper URL with base path */ -}}
+{{- $imgURL := $src -}}
+{{- if hasPrefix $src "/" -}}
+  {{- $basePath := urls.Parse .Site.BaseURL -}}
+  {{- $imgURL = printf "%s%s" (strings.TrimSuffix "/" $basePath.Path) $src -}}
+{{- end -}}
+
 <figure id="{{ $id }}" class="figure {{ $class }}">
   <img 
-    src="{{ $src }}" 
+    src="{{ $imgURL }}" 
     alt="{{ $alt }}"
     {{ with $width }}width="{{ . }}"{{ end }}
     {{ with $height }}height="{{ . }}"{{ end }}

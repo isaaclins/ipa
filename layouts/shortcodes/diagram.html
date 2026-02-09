@@ -1,5 +1,5 @@
 {{- /*
-  Diagram Shortcode - Mermaid and UML Diagram Support
+  Diagram Shortcode - Mermaid Diagram Support
   
   Usage:
     {{< diagram >}}
@@ -7,7 +7,7 @@
         A[Start] --> B[End]
     {{< /diagram >}}
   
-    {{< diagram type="sequence" caption="Authentication Flow" >}}
+    {{< diagram caption="Authentication Flow" >}}
     sequenceDiagram
         User->>Server: Login
         Server-->>User: Token
@@ -17,11 +17,9 @@
   - Supports Mermaid diagram syntax
   - Auto figure numbering for diagrams
   - Support for captions
-  - Fallback for PDF generation (pre-rendered images)
-  - Support for custom IDs
+  - Renders in browser (no pre-rendering needed)
   
   Parameters:
-  - type: Diagram type hint (optional, for documentation)
   - caption: Diagram caption (optional)
   - id: Custom anchor ID (optional)
   - class: Additional CSS classes (optional)
@@ -37,28 +35,17 @@
 {{- .Page.Scratch.Set "diagramCounter" $diagNum -}}
 
 {{- /* Get parameters */ -}}
-{{- $type := .Get "type" | default "mermaid" -}}
 {{- $caption := .Get "caption" | default "" -}}
 {{- $id := .Get "id" | default (printf "diagram-%d" $diagNum) -}}
 {{- $class := .Get "class" | default "" -}}
 
-{{- /* Get diagram content */ -}}
+{{- /* Get diagram content - trim whitespace */ -}}
 {{- $content := .Inner | safeHTML -}}
 
-<figure id="{{ $id }}" class="diagram {{ $class }}" data-diagram-type="{{ $type }}">
-  {{/* Mermaid diagram - renders client-side in browser */}}
-  <div class="mermaid diagram-content">
-{{ $content }}
-  </div>
-  
-  {{/* Pre-rendered fallback for PDF (check if image exists) */}}
-  {{- $fallbackPath := printf "/images/diagrams/%s.svg" $id -}}
-  {{- if fileExists (printf "static%s" $fallbackPath) -}}
-  <noscript>
-    <img src="{{ $fallbackPath | absURL }}" alt="{{ $caption | default "Diagram" }}" class="diagram-fallback">
-  </noscript>
-  {{- end -}}
-  
+<figure id="{{ $id }}" class="diagram {{ $class }}">
+  <pre class="mermaid">
+{{- $content -}}
+  </pre>
   {{ with $caption }}
   <figcaption>
     <span class="diagram-label">Diagramm {{ $diagNum }}:</span>

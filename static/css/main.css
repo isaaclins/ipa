@@ -543,10 +543,19 @@ blockquote {
 }
 
 /* Mermaid Diagrams */
+pre.mermaid,
 .mermaid {
   background: white;
   padding: var(--spacing-md);
   border-radius: var(--border-radius-sm);
+  overflow-x: auto;
+}
+
+/* Reset pre styles for mermaid */
+pre.mermaid {
+  color: inherit;
+  font-family: inherit;
+  line-height: inherit;
 }
 
 /* ============================================================================
