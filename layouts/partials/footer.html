@@ -1,0 +1,35 @@
+{{- /*
+  Footer Partial - Site Footer
+  
+  Contains copyright, metadata, and footer navigation.
+*/ -}}
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-info">
+      <p class="footer-title">{{ .Site.Params.ipaTitle | default .Site.Title }}</p>
+      <p class="footer-author">{{ .Site.Params.author }} — {{ .Site.Params.company }}</p>
+      <p class="footer-year">IPA {{ .Site.Params.ipaYear }}</p>
+    </div>
+    
+    <div class="footer-meta">
+      {{ if .Site.Params.enableGitInfo }}
+      {{ with .GitInfo }}
+      <p class="last-modified">
+        Letzte Änderung: {{ .AuthorDate.Format "02.01.2006 15:04" }}
+      </p>
+      {{ end }}
+      {{ end }}
+    </div>
+    
+    <nav class="footer-nav" aria-label="Footer Navigation">
+      <ul>
+        <li><a href="{{ .Site.BaseURL }}">Home</a></li>
+        <li><a href="{{ "glossar/" | absURL }}">Glossar</a></li>
+        {{ if .Site.Params.enablePDF }}
+        <li><a href="{{ "pdf/" | absURL }}">PDF Version</a></li>
+        {{ end }}
+      </ul>
+    </nav>
+  </div>
+</footer>

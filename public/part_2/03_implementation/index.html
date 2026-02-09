@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="de-ch">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+<title>Implementation | IPA Dokumentation</title>
+<meta name="description" content="Detaillierte Beschreibung der Implementation">
+<meta name="author" content="Kandidat Name">
+
+
+<meta property="og:title" content="Implementation">
+<meta property="og:description" content="Detaillierte Beschreibung der Implementation">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/part_2/03_implementation/">
+
+
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/favicon.svg">
+
+
+<link rel="stylesheet" href="http://localhost:1313/css/main.css">
+
+
+<link rel="stylesheet" href="http://localhost:1313/css/pdf.css" media="print">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'default',
+    securityLevel: 'loose',
+    flowchart: { useMaxWidth: true, htmlLabels: true }
+  });
+</script>
+
+
+
+
+</head>
+<body><header class="site-header">
+  <div class="header-content">
+    <div class="site-branding">
+      <a href="http://localhost:1313/" class="site-logo">
+        <span class="logo-text">IPA Dokumentation</span>
+      </a>
+      
+      <span class="site-subtitle">Untertitel der Arbeit</span>
+      
+    </div>
+    
+    <nav class="main-navigation" aria-label="Hauptnavigation">
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
+        <span class="nav-toggle-icon"></span>
+        <span class="sr-only">Menü</span>
+      </button>
+      
+      <ul id="nav-menu" class="nav-menu"><li class="nav-item">
+          <a href="/" class="nav-link">Home</a>
+        </li><li class="nav-item">
+          <a href="/part_1/" class="nav-link">Teil 1: Einleitung</a>
+        </li><li class="nav-item">
+          <a href="/part_2/" class="nav-link">Teil 2: Hauptteil</a>
+        </li><li class="nav-item">
+          <a href="/part_3/" class="nav-link">Teil 3: Schluss</a>
+        </li><li class="nav-item">
+          <a href="/arbeitsjournal/" class="nav-link">Arbeitsjournal</a>
+        </li><li class="nav-item">
+          <a href="/glossar/" class="nav-link">Glossar</a>
+        </li>
+        
+        <li class="nav-item nav-item-pdf">
+          <a href="http://localhost:1313/pdf/" class="nav-link nav-link-pdf" target="_blank">
+            📄 PDF
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="content"><article class="single-page">
+  <header class="page-header"><div class="page-number">2.3</div><h1 class="page-title">Implementation</h1>
+    
+    <p class="page-description">Detaillierte Beschreibung der Implementation</p>
+    
+    
+    <div class="page-meta">
+      
+      
+    </div>
+  </header>
+  
+  <div class="page-content">
+    <h2 id="projektstruktur">Projektstruktur</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">project/
+</span></span><span class="line"><span class="cl">├── src/
+</span></span><span class="line"><span class="cl">│   ├── components/
+</span></span><span class="line"><span class="cl">│   ├── services/
+</span></span><span class="line"><span class="cl">│   ├── models/
+</span></span><span class="line"><span class="cl">│   └── utils/
+</span></span><span class="line"><span class="cl">├── tests/
+</span></span><span class="line"><span class="cl">├── docs/
+</span></span><span class="line"><span class="cl">└── package.json
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="kernkomponenten">Kernkomponenten</h2>
+<h3 id="datenbankzugriff">Datenbankzugriff</h3>
+<p>Die Datenbankschicht wurde mit dem Repository-Pattern implementiert:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">Repository</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">findById</span><span class="p">(</span><span class="nx">id</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">T</span> <span class="err">|</span> <span class="na">null</span><span class="p">&gt;;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">findAll</span><span class="p">()</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">T</span><span class="err">[]</span><span class="p">&gt;;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">create</span><span class="p">(</span><span class="nx">entity</span>: <span class="kt">T</span><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">update</span><span class="p">(</span><span class="nx">id</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">entity</span>: <span class="kt">Partial</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;)</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">delete</span><span class="p">(</span><span class="nx">id</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">boolean</span><span class="p">&gt;;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="authentifizierung">Authentifizierung</h3>
+<figure id="diagram-1" class="diagram " data-diagram-type="mermaid">
+  
+  <div class="mermaid diagram-content">
+
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant API
+    participant Auth
+    participant DB
+    
+    User->>Frontend: Login Request
+    Frontend->>API: POST /auth/login
+    API->>Auth: Validate Credentials
+    Auth->>DB: Check User
+    DB-->>Auth: User Data
+    Auth-->>API: JWT Token
+    API-->>Frontend: Token Response
+    Frontend-->>User: Login Success
+
+  </div>
+  
+  
+</figure>
+
+<h2 id="code-beispiele">Code-Beispiele</h2>
+<h3 id="api-endpoint">API Endpoint</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/api/users&#39;</span><span class="p">,</span> <span class="kr">async</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">userService</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">201</span><span class="p">).</span><span class="nx">json</span><span class="p">(</span><span class="nx">user</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span> <span class="nx">error</span>: <span class="kt">error.message</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="validierung">Validierung</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">userSchema</span> <span class="o">=</span> <span class="nx">z</span><span class="p">.</span><span class="kt">object</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">email</span>: <span class="kt">z.string</span><span class="p">().</span><span class="nx">email</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span>: <span class="kt">z.string</span><span class="p">().</span><span class="nx">min</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">max</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">password</span>: <span class="kt">z.string</span><span class="p">().</span><span class="nx">min</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="herausforderungen">Herausforderungen</h2>
+<h3 id="problem-1-performance">Problem 1: Performance</h3>
+<p><strong>Situation:</strong> Die Datenbankabfragen waren zu langsam.</p>
+<p><strong>Lösung:</strong> Implementierung eines Caching-Layers mit Redis.</p>
+<h3 id="problem-2-concurrent-updates">Problem 2: Concurrent Updates</h3>
+<p><strong>Situation:</strong> Race Conditions bei gleichzeitigen Updates.</p>
+<p><strong>Lösung:</strong> Optimistic Locking mit Versionsnummern.</p>
+
+  </div>
+  
+  
+  <nav class="page-navigation">
+    
+    
+    
+    <a href="http://localhost:1313/part_2/02_konzept/" class="nav-next">
+      <span class="nav-label">Weiter →</span>
+      <span class="nav-title">Konzept</span>
+    </a>
+    
+  </nav>
+</article>
+
+  </main><footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-info">
+      <p class="footer-title">IPA Dokumentation Titel</p>
+      <p class="footer-author">Kandidat Name — Firma AG</p>
+      <p class="footer-year">IPA 2026</p>
+    </div>
+    
+    <div class="footer-meta">
+      
+    </div>
+    
+    <nav class="footer-nav" aria-label="Footer Navigation">
+      <ul>
+        <li><a href="http://localhost:1313/">Home</a></li>
+        <li><a href="http://localhost:1313/glossar/">Glossar</a></li>
+        
+        <li><a href="http://localhost:1313/pdf/">PDF Version</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<script src="http://localhost:1313/js/main.js" defer></script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.querySelector('.nav-menu');
+  
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', function() {
+      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !isExpanded);
+      navMenu.classList.toggle('is-open');
+    });
+  }
+});
+</script>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  
+  const glossaryLinks = document.querySelectorAll('.glossary-term');
+  glossaryLinks.forEach(function(link) {
+    link.addEventListener('mouseenter', function(e) {
+      const tooltip = link.querySelector('.glossary-tooltip');
+      if (tooltip) {
+        tooltip.classList.add('visible');
+      }
+    });
+    link.addEventListener('mouseleave', function(e) {
+      const tooltip = link.querySelector('.glossary-tooltip');
+      if (tooltip) {
+        tooltip.classList.remove('visible');
+      }
+    });
+  });
+});
+</script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,199 @@
+{{- /*
+  PDF Layout - Full Document for Print
+  
+  This layout combines ALL content into a single printable HTML document.
+  Used as input for Pandoc PDF generation.
+  
+  Structure:
+  1. Titelblatt (Title Page)
+  2. Table of Contents
+  3. All Parts/Chapters (numbered)
+  4. Arbeitsjournal
+  5. Glossar
+  
+  Numbering is handled via loop indices, no manual weights needed.
+*/ -}}
+
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "de-ch" }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ .Site.Params.ipaTitle | default .Site.Title }} - PDF</title>
+  <link rel="stylesheet" href="{{ "css/pdf.css" | absURL }}">
+  <link rel="stylesheet" href="{{ "css/main.css" | absURL }}">
+</head>
+<body class="pdf-document">
+
+{{/* ========== TITELBLATT ========== */}}
+<section id="titelblatt" class="titelblatt pdf-section">
+  <div class="titelblatt-content">
+    <div class="titelblatt-header">
+      <h1 class="document-type">Individuelle Praktische Arbeit</h1>
+      <p class="apprenticeship">{{ .Site.Params.apprenticeship }}</p>
+    </div>
+    
+    <div class="titelblatt-title">
+      <h1 class="ipa-title">{{ .Site.Params.ipaTitle | default .Site.Title }}</h1>
+      {{ with .Site.Params.ipaSubtitle }}
+      <h2 class="ipa-subtitle">{{ . }}</h2>
+      {{ end }}
+    </div>
+    
+    <div class="titelblatt-meta">
+      <table class="meta-table">
+        <tr><th>Kandidat/in:</th><td>{{ .Site.Params.author }}</td></tr>
+        <tr><th>Fachvorgesetzte/r:</th><td>{{ .Site.Params.supervisor }}</td></tr>
+        <tr><th>Expert/in:</th><td>{{ .Site.Params.expert }}</td></tr>
+        <tr><th>Firma:</th><td>{{ .Site.Params.company }}</td></tr>
+        <tr><th>Durchführung:</th><td>{{ .Site.Params.ipaStartDate }} bis {{ .Site.Params.ipaEndDate }}</td></tr>
+        <tr><th>Jahr:</th><td>{{ .Site.Params.ipaYear }}</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+{{/* ========== TABLE OF CONTENTS ========== */}}
+<section id="toc" class="toc pdf-section">
+  <h1>Inhaltsverzeichnis</h1>
+  <nav class="toc-content">
+    {{- $chapterNum := 0 -}}
+    {{- range .Site.Sections -}}
+      {{- if and (not (eq .Section "pdf")) (not (eq .Section "glossar")) (not (eq .Section "arbeitsjournal")) -}}
+        {{- $chapterNum = add $chapterNum 1 -}}
+        <div class="toc-chapter">
+          <a href="#{{ .Section }}" class="toc-chapter-link">
+            <span class="toc-num">{{ $chapterNum }}.</span>
+            <span class="toc-title">{{ .Title }}</span>
+          </a>
+          {{- if .Pages -}}
+          <ul class="toc-subchapters">
+            {{- range $subNum, $page := .Pages.ByWeight -}}
+            <li>
+              <a href="#{{ $page.File.ContentBaseName }}">
+                <span class="toc-num">{{ $chapterNum }}.{{ add $subNum 1 }}</span>
+                <span class="toc-title">{{ $page.Title }}</span>
+              </a>
+            </li>
+            {{- end -}}
+          </ul>
+          {{- end -}}
+        </div>
+      {{- end -}}
+    {{- end -}}
+    
+    {{/* Arbeitsjournal in TOC */}}
+    {{- with .Site.GetPage "/arbeitsjournal" -}}
+    <div class="toc-chapter">
+      <a href="#arbeitsjournal" class="toc-chapter-link">
+        <span class="toc-title">Arbeitsjournal</span>
+      </a>
+    </div>
+    {{- end -}}
+    
+    {{/* Glossar in TOC */}}
+    {{- with .Site.GetPage "/glossar" -}}
+    <div class="toc-chapter">
+      <a href="#glossar" class="toc-chapter-link">
+        <span class="toc-title">Glossar</span>
+      </a>
+    </div>
+    {{- end -}}
+  </nav>
+</section>
+
+{{/* ========== MAIN CONTENT - ALL PARTS ========== */}}
+{{- $chapterNum := 0 -}}
+{{- range .Site.Sections -}}
+  {{- if and (not (eq .Section "pdf")) (not (eq .Section "glossar")) (not (eq .Section "arbeitsjournal")) -}}
+    {{- $chapterNum = add $chapterNum 1 -}}
+    
+    {{/* Chapter Title Page */}}
+    <section id="{{ .Section }}" class="chapter pdf-section">
+      <div class="chapter-title-page">
+        <div class="chapter-number">
+          <span class="chapter-label">Kapitel</span>
+          <span class="chapter-num">{{ $chapterNum }}</span>
+        </div>
+        <h1 class="chapter-title">{{ .Title }}</h1>
+        {{ with .Description }}
+        <p class="chapter-description">{{ . }}</p>
+        {{ end }}
+      </div>
+      
+      {{ with .Content }}
+      <div class="chapter-intro">
+        {{ . }}
+      </div>
+      {{ end }}
+    </section>
+    
+    {{/* Subchapters */}}
+    {{- range $subNum, $page := .Pages.ByWeight -}}
+    <section id="{{ $page.File.ContentBaseName }}" class="subchapter pdf-section">
+      <header class="subchapter-header">
+        <div class="subchapter-number">{{ $chapterNum }}.{{ add $subNum 1 }}</div>
+        <h2 class="subchapter-title">{{ $page.Title }}</h2>
+      </header>
+      <div class="subchapter-content">
+        {{ $page.Content }}
+      </div>
+    </section>
+    {{- end -}}
+    
+  {{- end -}}
+{{- end -}}
+
+{{/* ========== ARBEITSJOURNAL ========== */}}
+{{- with .Site.GetPage "/arbeitsjournal" -}}
+<section id="arbeitsjournal" class="arbeitsjournal pdf-section">
+  <div class="chapter-title-page">
+    <h1 class="chapter-title">{{ .Title }}</h1>
+  </div>
+  
+  {{ with .Content }}
+  <div class="section-intro">
+    {{ . }}
+  </div>
+  {{ end }}
+  
+  {{/* Journal entries sorted by date */}}
+  {{- range .Pages.ByDate -}}
+  <article class="journal-entry pdf-subsection">
+    <header class="journal-header">
+      <h3>{{ .Title }}</h3>
+      <div class="journal-meta">
+        <time>{{ .Date.Format "02.01.2006" }}</time>
+        {{ with .Params.arbeitszeit }}
+        <span class="arbeitszeit">{{ . }}</span>
+        {{ end }}
+      </div>
+    </header>
+    <div class="journal-content">
+      {{ .Content }}
+    </div>
+  </article>
+  {{- end -}}
+</section>
+{{- end -}}
+
+{{/* ========== GLOSSAR ========== */}}
+{{- with .Site.GetPage "/glossar" -}}
+<section id="glossar" class="glossar pdf-section">
+  <div class="chapter-title-page">
+    <h1 class="chapter-title">{{ .Title }}</h1>
+  </div>
+  
+  <div class="glossar-content">
+    {{- range $key, $value := sort $.Site.Data.glossary "term" -}}
+    <div class="glossar-entry" id="glossar-{{ $value.id | urlize }}">
+      <dt class="glossar-term">{{ $value.term }}</dt>
+      <dd class="glossar-definition">{{ $value.definition }}</dd>
+    </div>
+    {{- end -}}
+  </div>
+</section>
+{{- end -}}
+
+</body>
+</html>

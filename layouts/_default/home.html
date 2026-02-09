@@ -1,0 +1,79 @@
+{{- /*
+  Home Layout - Titelblatt (Title Page)
+  
+  Renders the main title page of the IPA documentation.
+  Displays all metadata from site params: author, supervisor, expert, etc.
+*/ -}}
+
+{{ define "main" }}
+<div class="titelblatt">
+  <div class="titelblatt-content">
+    <div class="titelblatt-header">
+      <h1 class="document-type">Individuelle Praktische Arbeit</h1>
+      <p class="apprenticeship">{{ .Site.Params.apprenticeship }}</p>
+    </div>
+    
+    <div class="titelblatt-title">
+      <h1 class="ipa-title">{{ .Site.Params.ipaTitle | default .Site.Title }}</h1>
+      {{ with .Site.Params.ipaSubtitle }}
+      <h2 class="ipa-subtitle">{{ . }}</h2>
+      {{ end }}
+    </div>
+    
+    <div class="titelblatt-meta">
+      <table class="meta-table">
+        <tr>
+          <th>Kandidat/in:</th>
+          <td>{{ .Site.Params.author }}</td>
+        </tr>
+        <tr>
+          <th>Fachvorgesetzte/r:</th>
+          <td>{{ .Site.Params.supervisor }}</td>
+        </tr>
+        <tr>
+          <th>Expert/in:</th>
+          <td>{{ .Site.Params.expert }}</td>
+        </tr>
+        <tr>
+          <th>Firma:</th>
+          <td>{{ .Site.Params.company }}</td>
+        </tr>
+        <tr>
+          <th>Durchführungszeitraum:</th>
+          <td>{{ .Site.Params.ipaStartDate }} bis {{ .Site.Params.ipaEndDate }}</td>
+        </tr>
+        <tr>
+          <th>Jahr:</th>
+          <td>{{ .Site.Params.ipaYear }}</td>
+        </tr>
+      </table>
+    </div>
+    
+    {{ with .Content }}
+    <div class="titelblatt-description">
+      {{ . }}
+    </div>
+    {{ end }}
+  </div>
+</div>
+
+<section class="home-navigation">
+  <h2>Inhaltsverzeichnis</h2>
+  <nav class="toc-overview">
+    {{ range .Site.Sections }}
+    {{ if not (eq .Section "pdf") }}
+    <div class="toc-section">
+      <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+      {{ if .Pages }}
+      <ul>
+        {{ range .Pages.ByWeight }}
+        <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+        {{ end }}
+      </ul>
+      {{ end }}
+    </div>
+    {{ end }}
+    {{ end }}
+  </nav>
+</section>
+{{ end }}

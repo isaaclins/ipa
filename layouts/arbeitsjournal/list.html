@@ -1,0 +1,69 @@
+{{- /*
+  Arbeitsjournal Section Layout
+  
+  Special layout for the work journal section.
+  Automatically sorts entries by date (newest first).
+  Displays a timeline view of all journal entries.
+*/ -}}
+
+{{ define "main" }}
+<article class="arbeitsjournal-index">
+  <header class="section-header">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}
+    <p class="section-description">{{ . }}</p>
+    {{ end }}
+  </header>
+  
+  {{ with .Content }}
+  <div class="section-intro">
+    {{ . }}
+  </div>
+  {{ end }}
+  
+  {{/* Calculate total working hours */}}
+  {{- $totalHours := 0 -}}
+  {{- range .Pages -}}
+    {{- with .Params.arbeitszeit -}}
+      {{- $hours := replaceRE "[^0-9]" "" . -}}
+      {{- $totalHours = add $totalHours (int $hours) -}}
+    {{- end -}}
+  {{- end -}}
+  
+  <div class="journal-summary">
+    <div class="summary-item">
+      <span class="summary-label">Einträge:</span>
+      <span class="summary-value">{{ len .Pages }}</span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">Gesamtstunden:</span>
+      <span class="summary-value">{{ $totalHours }}h</span>
+    </div>
+  </div>
+  
+  {{/* Timeline of journal entries, sorted by date descending */}}
+  <div class="journal-timeline">
+    {{ range .Pages.ByDate.Reverse }}
+    <article class="journal-entry">
+      <div class="entry-date">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">
+          <span class="day">{{ .Date.Format "02" }}</span>
+          <span class="month">{{ .Date.Format "Jan" }}</span>
+          <span class="year">{{ .Date.Format "2006" }}</span>
+        </time>
+      </div>
+      <div class="entry-content">
+        <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+        {{ with .Params.arbeitszeit }}
+        <span class="arbeitszeit-badge">{{ . }}</span>
+        {{ end }}
+        {{ if .Summary }}
+        <p class="entry-summary">{{ .Summary | truncate 200 }}</p>
+        {{ end }}
+        <a href="{{ .Permalink }}" class="read-more">Mehr lesen →</a>
+      </div>
+    </article>
+    {{ end }}
+  </div>
+</article>
+{{ end }}

@@ -1,0 +1,173 @@
+# ============================================================================
+# IPA Documentation Framework - Hugo Configuration
+# ============================================================================
+# This configuration supports both HTML website and PDF output generation.
+# Uses Hugo Extended with Goldmark renderer for full Markdown support.
+# ============================================================================
+
+baseURL = 'https://example.org/'
+languageCode = 'de-ch'
+title = 'IPA Dokumentation'
+theme = ''
+
+# ============================================================================
+# Build Settings
+# ============================================================================
+
+enableGitInfo = true
+enableRobotsTXT = true
+disableKinds = ['RSS']
+
+# Automatically derive section order from filename prefixes
+# No manual weight maintenance required
+[frontmatter]
+  date = ['date', 'publishDate', 'lastmod']
+
+# ============================================================================
+# Goldmark Markdown Renderer Configuration
+# ============================================================================
+
+[markup]
+  defaultMarkdownHandler = 'goldmark'
+  
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      definitionList = true
+      footnote = true
+      linkify = true
+      linkifyProtocol = 'https'
+      strikethrough = true
+      table = true
+      taskList = true
+      typographer = true
+    
+    [markup.goldmark.parser]
+      autoHeadingID = true
+      autoHeadingIDType = 'github'
+      
+      [markup.goldmark.parser.attribute]
+        block = true
+        title = true
+    
+    [markup.goldmark.renderer]
+      # Allow raw HTML in Markdown for advanced formatting
+      unsafe = true
+  
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = false
+    style = 'monokai'
+    tabWidth = 4
+
+  [markup.tableOfContents]
+    startLevel = 1
+    endLevel = 4
+    ordered = true
+
+# ============================================================================
+# Output Format Definitions
+# ============================================================================
+
+[outputs]
+  home = ['HTML']
+  section = ['HTML']
+  page = ['HTML']
+
+# Custom output format for PDF compilation
+[outputFormats]
+  [outputFormats.PDF]
+    baseName = 'print'
+    isHTML = true
+    mediaType = 'text/html'
+    path = 'pdf'
+    permalinkable = false
+
+# ============================================================================
+# Taxonomy Configuration
+# ============================================================================
+
+[taxonomies]
+  tag = 'tags'
+  category = 'categories'
+
+# ============================================================================
+# Menu Configuration
+# ============================================================================
+
+[menus]
+  [[menus.main]]
+    name = 'Home'
+    pageRef = '/'
+    weight = 10
+  
+  [[menus.main]]
+    name = 'Teil 1: Einleitung'
+    pageRef = '/part_1/'
+    weight = 20
+  
+  [[menus.main]]
+    name = 'Teil 2: Hauptteil'
+    pageRef = '/part_2/'
+    weight = 30
+  
+  [[menus.main]]
+    name = 'Teil 3: Schluss'
+    pageRef = '/part_3/'
+    weight = 40
+  
+  [[menus.main]]
+    name = 'Arbeitsjournal'
+    pageRef = '/arbeitsjournal/'
+    weight = 50
+  
+  [[menus.main]]
+    name = 'Glossar'
+    pageRef = '/glossar/'
+    weight = 60
+
+# ============================================================================
+# Site Parameters
+# ============================================================================
+
+[params]
+  # IPA Metadata
+  author = 'Kandidat Name'
+  supervisor = 'Fachvorgesetzte/r Name'
+  expert = 'Expert/in Name'
+  company = 'Firma AG'
+  apprenticeship = 'Informatiker/in EFZ Applikationsentwicklung'
+  ipaTitle = 'IPA Dokumentation Titel'
+  ipaSubtitle = 'Untertitel der Arbeit'
+  ipaYear = '2026'
+  ipaStartDate = '2026-01-15'
+  ipaEndDate = '2026-02-09'
+  
+  # PDF Generation Settings
+  enablePDF = true
+  pdfFilename = 'ipa-dokumentation.pdf'
+  
+  # Feature Toggles
+  enableGlossary = true
+  enableMermaid = true
+  enableKaTeX = false
+  
+  # Date Format (Swiss German)
+  dateFormat = '2. January 2006'
+
+# ============================================================================
+# Privacy Settings (GDPR Compliance)
+# ============================================================================
+
+[privacy]
+  [privacy.googleAnalytics]
+    disable = true
+  [privacy.x]
+    disable = true
+  [privacy.youtube]
+    disable = true
+  [privacy.vimeo]
+    disable = true

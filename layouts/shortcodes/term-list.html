@@ -1,0 +1,40 @@
+{{- /*
+  Term List Shortcode - Generate Complete Glossary Index
+  
+  Usage:
+    {{< term-list >}}
+  
+  Features:
+  - Reads all terms from data/glossary.yaml
+  - Sorts alphabetically by term
+  - Creates anchor links for each term
+  - Groups by first letter (optional)
+  
+  Used on the glossary index page to display all terms.
+*/ -}}
+
+{{- $glossary := $.Site.Data.glossary -}}
+
+{{- if $glossary -}}
+<dl class="glossar-list">
+  {{- /* Sort terms alphabetically */ -}}
+  {{- range sort $glossary "term" -}}
+  <div class="glossar-entry" id="glossar-{{ .id | urlize }}">
+    <dt class="glossar-term">
+      <strong>{{ .term }}</strong>
+      {{ with .abbrev }}
+      <span class="term-abbrev">({{ . }})</span>
+      {{ end }}
+    </dt>
+    <dd class="glossar-definition">
+      {{ .definition | markdownify }}
+      {{ with .link }}
+      <a href="{{ . }}" class="term-link" target="_blank" rel="noopener">Mehr erfahren →</a>
+      {{ end }}
+    </dd>
+  </div>
+  {{- end -}}
+</dl>
+{{- else -}}
+<p class="glossar-empty">Keine Glossareinträge gefunden. Bitte fügen Sie Einträge in <code>data/glossary.yaml</code> hinzu.</p>
+{{- end -}}

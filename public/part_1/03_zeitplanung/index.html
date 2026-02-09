@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="de-ch">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+<title>Zeitplanung | IPA Dokumentation</title>
+<meta name="description" content="Detaillierte Zeitplanung der IPA">
+<meta name="author" content="Kandidat Name">
+
+
+<meta property="og:title" content="Zeitplanung">
+<meta property="og:description" content="Detaillierte Zeitplanung der IPA">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/part_1/03_zeitplanung/">
+
+
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/favicon.svg">
+
+
+<link rel="stylesheet" href="http://localhost:1313/css/main.css">
+
+
+<link rel="stylesheet" href="http://localhost:1313/css/pdf.css" media="print">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'default',
+    securityLevel: 'loose',
+    flowchart: { useMaxWidth: true, htmlLabels: true }
+  });
+</script>
+
+
+
+
+</head>
+<body><header class="site-header">
+  <div class="header-content">
+    <div class="site-branding">
+      <a href="http://localhost:1313/" class="site-logo">
+        <span class="logo-text">IPA Dokumentation</span>
+      </a>
+      
+      <span class="site-subtitle">Untertitel der Arbeit</span>
+      
+    </div>
+    
+    <nav class="main-navigation" aria-label="Hauptnavigation">
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
+        <span class="nav-toggle-icon"></span>
+        <span class="sr-only">Menü</span>
+      </button>
+      
+      <ul id="nav-menu" class="nav-menu"><li class="nav-item">
+          <a href="/" class="nav-link">Home</a>
+        </li><li class="nav-item">
+          <a href="/part_1/" class="nav-link">Teil 1: Einleitung</a>
+        </li><li class="nav-item">
+          <a href="/part_2/" class="nav-link">Teil 2: Hauptteil</a>
+        </li><li class="nav-item">
+          <a href="/part_3/" class="nav-link">Teil 3: Schluss</a>
+        </li><li class="nav-item">
+          <a href="/arbeitsjournal/" class="nav-link">Arbeitsjournal</a>
+        </li><li class="nav-item">
+          <a href="/glossar/" class="nav-link">Glossar</a>
+        </li>
+        
+        <li class="nav-item nav-item-pdf">
+          <a href="http://localhost:1313/pdf/" class="nav-link nav-link-pdf" target="_blank">
+            📄 PDF
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="content"><article class="single-page">
+  <header class="page-header"><div class="page-number">1.3</div><h1 class="page-title">Zeitplanung</h1>
+    
+    <p class="page-description">Detaillierte Zeitplanung der IPA</p>
+    
+    
+    <div class="page-meta">
+      
+      
+    </div>
+  </header>
+  
+  <div class="page-content">
+    <h2 id="übersicht">Übersicht</h2>
+<p>Die IPA wird in der Zeit vom 2026-01-15 bis 2026-02-09 durchgeführt.</p>
+<h2 id="meilensteine">Meilensteine</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Meilenstein</th>
+          <th>Datum</th>
+          <th>Status</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Projektstart</td>
+          <td>2026-01-15</td>
+          <td>✓</td>
+      </tr>
+      <tr>
+          <td>Konzept fertig</td>
+          <td>TBD</td>
+          <td>☐</td>
+      </tr>
+      <tr>
+          <td>Implementation fertig</td>
+          <td>TBD</td>
+          <td>☐</td>
+      </tr>
+      <tr>
+          <td>Test abgeschlossen</td>
+          <td>TBD</td>
+          <td>☐</td>
+      </tr>
+      <tr>
+          <td>Dokumentation fertig</td>
+          <td>TBD</td>
+          <td>☐</td>
+      </tr>
+      <tr>
+          <td>Projektende</td>
+          <td>2026-02-09</td>
+          <td>☐</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="arbeitsaufteilung">Arbeitsaufteilung</h2>
+<figure id="diagram-1" class="diagram " data-diagram-type="mermaid">
+  
+  <div class="mermaid diagram-content">
+
+gantt
+    title IPA Zeitplanung
+    dateFormat  YYYY-MM-DD
+    section Vorbereitung
+    Einarbeitung           :a1, 2026-01-15, 2d
+    Konzeption             :a2, after a1, 3d
+    section Implementation
+    Grundstruktur          :b1, after a2, 5d
+    Features               :b2, after b1, 10d
+    section Abschluss
+    Testing                :c1, after b2, 3d
+    Dokumentation          :c2, after c1, 2d
+
+  </div>
+  
+  
+</figure>
+
+<h2 id="stundenschätzung">Stundenschätzung</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Phase</th>
+          <th>Geschätzte Stunden</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Analyse</td>
+          <td>16h</td>
+      </tr>
+      <tr>
+          <td>Konzept</td>
+          <td>24h</td>
+      </tr>
+      <tr>
+          <td>Implementation</td>
+          <td>40h</td>
+      </tr>
+      <tr>
+          <td>Testing</td>
+          <td>8h</td>
+      </tr>
+      <tr>
+          <td>Dokumentation</td>
+          <td>12h</td>
+      </tr>
+      <tr>
+          <td><strong>Total</strong></td>
+          <td><strong>100h</strong></td>
+      </tr>
+  </tbody>
+</table>
+
+  </div>
+  
+  
+  <nav class="page-navigation">
+    
+    
+    
+    <a href="http://localhost:1313/part_1/02_projektumfeld/" class="nav-next">
+      <span class="nav-label">Weiter →</span>
+      <span class="nav-title">Projektumfeld</span>
+    </a>
+    
+  </nav>
+</article>
+
+  </main><footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-info">
+      <p class="footer-title">IPA Dokumentation Titel</p>
+      <p class="footer-author">Kandidat Name — Firma AG</p>
+      <p class="footer-year">IPA 2026</p>
+    </div>
+    
+    <div class="footer-meta">
+      
+    </div>
+    
+    <nav class="footer-nav" aria-label="Footer Navigation">
+      <ul>
+        <li><a href="http://localhost:1313/">Home</a></li>
+        <li><a href="http://localhost:1313/glossar/">Glossar</a></li>
+        
+        <li><a href="http://localhost:1313/pdf/">PDF Version</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<script src="http://localhost:1313/js/main.js" defer></script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.querySelector('.nav-menu');
+  
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', function() {
+      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !isExpanded);
+      navMenu.classList.toggle('is-open');
+    });
+  }
+});
+</script>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  
+  const glossaryLinks = document.querySelectorAll('.glossary-term');
+  glossaryLinks.forEach(function(link) {
+    link.addEventListener('mouseenter', function(e) {
+      const tooltip = link.querySelector('.glossary-tooltip');
+      if (tooltip) {
+        tooltip.classList.add('visible');
+      }
+    });
+    link.addEventListener('mouseleave', function(e) {
+      const tooltip = link.querySelector('.glossary-tooltip');
+      if (tooltip) {
+        tooltip.classList.remove('visible');
+      }
+    });
+  });
+});
+</script>
+
+
+
+
+</body>
+</html>

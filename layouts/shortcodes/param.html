@@ -1,0 +1,12 @@
+{{- /*
+  Param Shortcode - Access Site Parameters
+  
+  Usage:
+    {{< param "author" >}}
+    {{< param "ipaTitle" >}}
+  
+  Allows easy access to site.params values within content.
+*/ -}}
+
+{{- $paramName := .Get 0 -}}
+{{- index .Site.Params $paramName -}}

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="de-ch">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+<title>Anforderungsanalyse | IPA Dokumentation</title>
+<meta name="description" content="Analyse der funktionalen und nicht-funktionalen Anforderungen">
+<meta name="author" content="Kandidat Name">
+
+
+<meta property="og:title" content="Anforderungsanalyse">
+<meta property="og:description" content="Analyse der funktionalen und nicht-funktionalen Anforderungen">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/part_2/01_anforderungsanalyse/">
+
+
+<link rel="icon" type="image/svg+xml" href="http://localhost:1313/favicon.svg">
+
+
+<link rel="stylesheet" href="http://localhost:1313/css/main.css">
+
+
+<link rel="stylesheet" href="http://localhost:1313/css/pdf.css" media="print">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'default',
+    securityLevel: 'loose',
+    flowchart: { useMaxWidth: true, htmlLabels: true }
+  });
+</script>
+
+
+
+
+</head>
+<body><header class="site-header">
+  <div class="header-content">
+    <div class="site-branding">
+      <a href="http://localhost:1313/" class="site-logo">
+        <span class="logo-text">IPA Dokumentation</span>
+      </a>
+      
+      <span class="site-subtitle">Untertitel der Arbeit</span>
+      
+    </div>
+    
+    <nav class="main-navigation" aria-label="Hauptnavigation">
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
+        <span class="nav-toggle-icon"></span>
+        <span class="sr-only">Menü</span>
+      </button>
+      
+      <ul id="nav-menu" class="nav-menu"><li class="nav-item">
+          <a href="/" class="nav-link">Home</a>
+        </li><li class="nav-item">
+          <a href="/part_1/" class="nav-link">Teil 1: Einleitung</a>
+        </li><li class="nav-item">
+          <a href="/part_2/" class="nav-link">Teil 2: Hauptteil</a>
+        </li><li class="nav-item">
+          <a href="/part_3/" class="nav-link">Teil 3: Schluss</a>
+        </li><li class="nav-item">
+          <a href="/arbeitsjournal/" class="nav-link">Arbeitsjournal</a>
+        </li><li class="nav-item">
+          <a href="/glossar/" class="nav-link">Glossar</a>
+        </li>
+        
+        <li class="nav-item nav-item-pdf">
+          <a href="http://localhost:1313/pdf/" class="nav-link nav-link-pdf" target="_blank">
+            📄 PDF
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="content"><article class="single-page">
+  <header class="page-header"><div class="page-number">2.1</div><h1 class="page-title">Anforderungsanalyse</h1>
+    
+    <p class="page-description">Analyse der funktionalen und nicht-funktionalen Anforderungen</p>
+    
+    
+    <div class="page-meta">
+      
+      
+    </div>
+  </header>
+  
+  <div class="page-content">
+    <h2 id="einleitung">Einleitung</h2>
+<p>In diesem Kapitel werden die Anforderungen an das System analysiert und dokumentiert.</p>
+<h2 id="funktionale-anforderungen">Funktionale Anforderungen</h2>
+<h3 id="fa-001-benutzeranmeldung">FA-001: Benutzeranmeldung</h3>
+<table>
+  <thead>
+      <tr>
+          <th>Attribut</th>
+          <th>Wert</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>ID</td>
+          <td>FA-001</td>
+      </tr>
+      <tr>
+          <td>Priorität</td>
+          <td>Muss</td>
+      </tr>
+      <tr>
+          <td>Beschreibung</td>
+          <td>Das System muss eine sichere Benutzeranmeldung ermöglichen</td>
+      </tr>
+      <tr>
+          <td>Akzeptanzkriterien</td>
+          <td>Benutzer kann sich mit E-Mail und Passwort anmelden</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="fa-002-datenverwaltung">FA-002: Datenverwaltung</h3>
+<table>
+  <thead>
+      <tr>
+          <th>Attribut</th>
+          <th>Wert</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>ID</td>
+          <td>FA-002</td>
+      </tr>
+      <tr>
+          <td>Priorität</td>
+          <td>Muss</td>
+      </tr>
+      <tr>
+          <td>Beschreibung</td>
+          <td>CRUD-Operationen für Stammdaten</td>
+      </tr>
+      <tr>
+          <td>Akzeptanzkriterien</td>
+          <td>Alle Operationen funktionieren korrekt</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="nicht-funktionale-anforderungen">Nicht-funktionale Anforderungen</h2>
+<h3 id="nfa-001-performance">NFA-001: Performance</h3>
+<p>Das System muss folgende Performance-Anforderungen erfüllen:</p>
+<ul>
+<li>Antwortzeit &lt; 2 Sekunden</li>
+<li>Unterstützung für 100 gleichzeitige Benutzer</li>
+<li>Verfügbarkeit von 99.5%</li>
+</ul>
+<h3 id="nfa-002-sicherheit">NFA-002: Sicherheit</h3>
+<ul>
+<li>Verschlüsselte Datenübertragung (TLS 1.3)</li>
+<li>Sichere Passwortspeicherung (bcrypt)</li>
+<li>OWASP Top 10 konform</li>
+</ul>
+<h2 id="use-case-diagramm">Use Case Diagramm</h2>
+<figure id="diagram-1" class="diagram " data-diagram-type="mermaid">
+  
+  <div class="mermaid diagram-content">
+
+graph TB
+    subgraph System
+        UC1[Anmelden]
+        UC2[Daten verwalten]
+        UC3[Berichte erstellen]
+    end
+    
+    Benutzer((Benutzer)) --> UC1
+    Benutzer --> UC2
+    Admin((Admin)) --> UC3
+    Admin --> UC2
+
+  </div>
+  
+  
+</figure>
+
+
+  </div>
+  
+  
+  <nav class="page-navigation">
+    
+    <a href="http://localhost:1313/part_2/02_konzept/" class="nav-prev">
+      <span class="nav-label">← Zurück</span>
+      <span class="nav-title">Konzept</span>
+    </a>
+    
+    
+    
+  </nav>
+</article>
+
+  </main><footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-info">
+      <p class="footer-title">IPA Dokumentation Titel</p>
+      <p class="footer-author">Kandidat Name — Firma AG</p>
+      <p class="footer-year">IPA 2026</p>
+    </div>
+    
+    <div class="footer-meta">
+      
+    </div>
+    
+    <nav class="footer-nav" aria-label="Footer Navigation">
+      <ul>
+        <li><a href="http://localhost:1313/">Home</a></li>
+        <li><a href="http://localhost:1313/glossar/">Glossar</a></li>
+        
+        <li><a href="http://localhost:1313/pdf/">PDF Version</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<script src="http://localhost:1313/js/main.js" defer></script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.querySelector('.nav-menu');
+  
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', function() {
+      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !isExpanded);
+      navMenu.classList.toggle('is-open');
+    });
+  }
+});
+</script>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  
+  const glossaryLinks = document.querySelectorAll('.glossary-term');
+  glossaryLinks.forEach(function(link) {
+    link.addEventListener('mouseenter', function(e) {
+      const tooltip = link.querySelector('.glossary-tooltip');
+      if (tooltip) {
+        tooltip.classList.add('visible');
+      }
+    });
+    link.addEventListener('mouseleave', function(e) {
+      const tooltip = link.querySelector('.glossary-tooltip');
+      if (tooltip) {
+        tooltip.classList.remove('visible');
+      }
+    });
+  });
+});
+</script>
+
+
+
+
+</body>
+</html>

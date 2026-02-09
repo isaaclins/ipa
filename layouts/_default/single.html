@@ -1,0 +1,73 @@
+{{- /*
+  Single Page Layout
+  
+  Renders individual content pages with automatic chapter and subchapter numbering.
+  Numbering is derived from:
+  - Parent section index (chapter number)
+  - Page weight or filename prefix (subchapter number)
+*/ -}}
+
+{{ define "main" }}
+{{- /* Calculate chapter number from parent section */ -}}
+{{- $chapterNum := 0 -}}
+{{- $parent := .Parent -}}
+{{- range $i, $section := .Site.Sections -}}
+  {{- if and $parent (eq $section.File.Dir $parent.File.Dir) -}}
+    {{- $chapterNum = add $i 1 -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Calculate subchapter number from siblings */ -}}
+{{- $subchapterNum := 0 -}}
+{{- if $parent -}}
+  {{- range $i, $page := $parent.Pages.ByWeight -}}
+    {{- if eq $page.File.Path $.File.Path -}}
+      {{- $subchapterNum = add $i 1 -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+<article class="single-page">
+  <header class="page-header">
+    {{- if and (gt $chapterNum 0) (gt $subchapterNum 0) -}}
+    <div class="page-number">{{ $chapterNum }}.{{ $subchapterNum }}</div>
+    {{- end -}}
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{ with .Description }}
+    <p class="page-description">{{ . }}</p>
+    {{ end }}
+    
+    <div class="page-meta">
+      {{ with .Params.date }}
+      <time datetime="{{ . | time.Format "2006-01-02" }}">
+        {{ . | time.Format $.Site.Params.dateFormat }}
+      </time>
+      {{ end }}
+      {{ with .Params.arbeitszeit }}
+      <span class="arbeitszeit">Arbeitszeit: {{ . }}</span>
+      {{ end }}
+    </div>
+  </header>
+  
+  <div class="page-content">
+    {{ .Content }}
+  </div>
+  
+  {{/* Navigation to previous/next pages */}}
+  <nav class="page-navigation">
+    {{ with .PrevInSection }}
+    <a href="{{ .Permalink }}" class="nav-prev">
+      <span class="nav-label">← Zurück</span>
+      <span class="nav-title">{{ .Title }}</span>
+    </a>
+    {{ end }}
+    
+    {{ with .NextInSection }}
+    <a href="{{ .Permalink }}" class="nav-next">
+      <span class="nav-label">Weiter →</span>
+      <span class="nav-title">{{ .Title }}</span>
+    </a>
+    {{ end }}
+  </nav>
+</article>
+{{ end }}
