@@ -8,7 +8,6 @@
 baseURL = 'https://isaaclins.com/ipa'
 languageCode = 'de-ch'
 title = 'IPA Dokumentation'
-theme = ''
 
 # ============================================================================
 # Build Settings
