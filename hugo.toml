@@ -5,7 +5,7 @@
 # Uses Hugo Extended with Goldmark renderer for full Markdown support.
 # ============================================================================
 
-baseURL = 'https://example.org/'
+baseURL = 'https://isaaclins.com/ipa'
 languageCode = 'de-ch'
 title = 'IPA Dokumentation'
 theme = ''
@@ -134,21 +134,25 @@ disableKinds = ['RSS']
 # ============================================================================
 
 [params]
-  # IPA Metadata
-  author = 'Kandidat Name'
-  supervisor = 'Fachvorgesetzte/r Name'
-  expert = 'Expert/in Name'
-  company = 'Firma AG'
-  apprenticeship = 'Informatiker/in EFZ Applikationsentwicklung'
-  ipaTitle = 'IPA Dokumentation Titel'
-  ipaSubtitle = 'Untertitel der Arbeit'
-  ipaYear = '2026'
-  ipaStartDate = '2026-01-15'
-  ipaEndDate = '2026-02-09'
+  # IPA Metadata - Pflichtfelder
+  autor = 'Isaac Lins'
+  thema = 'IPA Dokumentation Titel'
+  datumVon = '09.03.2026'
+  datumBis = '27.03.2026'
+  
+  # Beteiligte Personen
+  hauptexperte = 'Hauptexperte Name'
+  nebenexperte = 'Nebenexperte Name'
+  verantwortlicheFachkraft = 'Verantwortliche Fachkraft Name'
+  weitereFachlicheBegleitung = ''  # Optional - nur anzeigen wenn ausgefüllt
+  lernbegleiter = 'Lernbegleiter Name'
+  
+  # Dokument-Metadaten
+  version = '1.0'
+  dokumentname = 'ipa-dokumentation-isaac-lins.pdf'
   
   # PDF Generation Settings
   enablePDF = true
-  pdfFilename = 'ipa-dokumentation.pdf'
   
   # Feature Toggles
   enableGlossary = true

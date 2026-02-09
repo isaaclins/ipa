@@ -7,9 +7,9 @@
 <footer class="site-footer">
   <div class="footer-content">
     <div class="footer-info">
-      <p class="footer-title">{{ .Site.Params.ipaTitle | default .Site.Title }}</p>
-      <p class="footer-author">{{ .Site.Params.author }} — {{ .Site.Params.company }}</p>
-      <p class="footer-year">IPA {{ .Site.Params.ipaYear }}</p>
+      <p class="footer-title">{{ .Site.Params.thema | default .Site.Title }}</p>
+      <p class="footer-author">{{ .Site.Params.autor }}</p>
+      <p class="footer-version">Version {{ .Site.Params.version }}</p>
     </div>
     
     <div class="footer-meta">
