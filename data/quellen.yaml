@@ -1,0 +1,45 @@
+# ============================================================================
+# IPA Quellenverzeichnis (Bibliography / References)
+# ============================================================================
+# This file contains all sources referenced in the documentation.
+# Entries are rendered in the PDF under "Verzeichnisse > Quellenverzeichnis".
+#
+# Entry Format:
+#   - id: unique-identifier
+#     titel: "Title of the source"
+#     autor: "Author name(s)" (optional)
+#     jahr: Year of publication (optional)
+#     url: "https://..." (optional)
+#     zugriff: "DD.MM.YYYY" - date accessed (optional, for online sources)
+#     typ: website | buch | artikel | dokumentation (optional, default: website)
+#     verlag: "Publisher" (optional, for books)
+#
+# Usage in content:
+#   Reference sources by their id. They will appear in the Quellenverzeichnis.
+# ============================================================================
+
+# Beispiel-Einträge (bitte anpassen)
+
+- id: node-docs
+  titel: "Node.js Documentation"
+  autor: "OpenJS Foundation"
+  jahr: 2026
+  url: "https://nodejs.org/docs/latest/api/"
+  zugriff: "09.02.2026"
+  typ: dokumentation
+
+- id: typescript-handbook
+  titel: "The TypeScript Handbook"
+  autor: "Microsoft"
+  jahr: 2026
+  url: "https://www.typescriptlang.org/docs/handbook/"
+  zugriff: "09.02.2026"
+  typ: dokumentation
+
+- id: zod-docs
+  titel: "Zod - TypeScript-first Schema Validation"
+  autor: "Colin McDonnell"
+  jahr: 2026
+  url: "https://zod.dev/"
+  zugriff: "09.02.2026"
+  typ: dokumentation
