@@ -1,5 +1,5 @@
 ---
-title: "IPA Dokumentation"
+title: "Exampleasdasdasdasdasdasdasdasd"
 description: "Individuelle Praktische Arbeit"
 type: "home"
 layout: "home"

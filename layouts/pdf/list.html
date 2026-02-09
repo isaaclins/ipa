@@ -14,7 +14,7 @@
   2. Table of Contents
   3. All Parts/Chapters (numbered)
   4. Arbeitsjournal
-  5. Glossar
+  5. Verzeichnisse (Abbildungsverzeichnis, Glossar, Quellenverzeichnis)
 */ -}}
 
 <!DOCTYPE html>
@@ -22,7 +22,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ .Site.Params.thema | default .Site.Title }} - PDF</title>
+  {{/* 
+    Doc3.1: Chrome's built-in "Headers and footers" uses <title> for the center text.
+    This puts the candidate name in every page's header automatically.
+  */}}
+  <title>IPA Dokumentation – {{ .Site.Params.autor }}</title>
   <link rel="stylesheet" href="{{ "css/main.css" | absURL }}">
   <link rel="stylesheet" href="{{ "css/pdf.css" | absURL }}">
   
@@ -96,14 +100,14 @@
 {{/* ========== TITELBLATT ========== */}}
 <section id="titelblatt" class="titelblatt pdf-section">
   <div class="titelblatt-content">
-    <div class="titelblatt-header">
-      <h1 class="document-type">Individuelle Praktische Arbeit</h1>
-    </div>
+
     
     <div class="titelblatt-title">
       <h1 class="ipa-title">{{ .Site.Params.thema | default .Site.Title }}</h1>
     </div>
-    
+    <div class="titelblatt-subtitle">
+      <h1 class="document-type">{{ .Site.Params.description }}</h1>
+    </div>
     <div class="titelblatt-meta">
       <table class="meta-table">
         <tr><th>Autor:</th><td>{{ .Site.Params.autor }}</td></tr>
@@ -164,14 +168,33 @@
     </div>
     {{- end -}}
     
-    {{/* Glossar in TOC */}}
-    {{- with .Site.GetPage "/glossar" -}}
+    {{/* Verzeichnisse in TOC */}}
     <div class="toc-chapter">
-      <a href="#glossar" class="toc-chapter-link">
-        <span class="toc-title">Glossar</span>
+      <a href="#verzeichnisse" class="toc-chapter-link">
+        <span class="toc-title">Verzeichnisse</span>
       </a>
+      <ul class="toc-subchapters">
+        <li>
+          <a href="#abbildungsverzeichnis">
+            <span class="toc-title">Abbildungsverzeichnis</span>
+          </a>
+        </li>
+        {{- with .Site.GetPage "/glossar" -}}
+        <li>
+          <a href="#glossar">
+            <span class="toc-title">Glossar</span>
+          </a>
+        </li>
+        {{- end -}}
+        {{- if $.Site.Data.quellen -}}
+        <li>
+          <a href="#quellenverzeichnis">
+            <span class="toc-title">Quellenverzeichnis</span>
+          </a>
+        </li>
+        {{- end -}}
+      </ul>
     </div>
-    {{- end -}}
   </nav>
 </section>
 
@@ -219,11 +242,15 @@
 
 {{/* ========== ARBEITSJOURNAL ========== */}}
 {{- with .Site.GetPage "/arbeitsjournal" -}}
+{{/* Title page - standalone */}}
 <section id="arbeitsjournal" class="arbeitsjournal pdf-section">
   <div class="chapter-title-page">
     <h1 class="chapter-title">{{ .Title }}</h1>
   </div>
-  
+</section>
+
+{{/* Content starts on next page */}}
+<section class="arbeitsjournal-content pdf-section">
   {{ with .Content }}
   <div class="section-intro">
     {{ . }}
@@ -250,13 +277,27 @@
 </section>
 {{- end -}}
 
-{{/* ========== GLOSSAR ========== */}}
-{{- with .Site.GetPage "/glossar" -}}
-<section id="glossar" class="glossar pdf-section">
+{{/* ========== VERZEICHNISSE ========== */}}
+{{/* Title page */}}
+<section id="verzeichnisse" class="verzeichnisse pdf-section">
   <div class="chapter-title-page">
-    <h1 class="chapter-title">{{ .Title }}</h1>
+    <h1 class="chapter-title">Verzeichnisse</h1>
   </div>
-  
+</section>
+
+{{/* --- Abbildungsverzeichnis --- */}}
+<section id="abbildungsverzeichnis" class="verzeichnis-subsection pdf-section">
+  <h2 class="verzeichnis-title">Abbildungsverzeichnis</h2>
+  <div class="abbildungsverzeichnis-content" id="abbildungsverzeichnisContent">
+    {{/* Populated by JavaScript - scans all figures and diagrams in the document */}}
+    <p class="verzeichnis-empty" id="abbildungsverzeichnisEmpty">Keine Abbildungen vorhanden.</p>
+  </div>
+</section>
+
+{{/* --- Glossar --- */}}
+{{- with .Site.GetPage "/glossar" -}}
+<section id="glossar" class="verzeichnis-subsection pdf-section">
+  <h2 class="verzeichnis-title">Glossar</h2>
   <div class="glossar-content">
     {{- range $key, $value := sort $.Site.Data.glossary "term" -}}
     <div class="glossar-entry" id="glossar-{{ $value.id | urlize }}">
@@ -268,11 +309,82 @@
 </section>
 {{- end -}}
 
+{{/* --- Quellenverzeichnis --- */}}
+{{- if .Site.Data.quellen -}}
+<section id="quellenverzeichnis" class="verzeichnis-subsection pdf-section">
+  <h2 class="verzeichnis-title">Quellenverzeichnis</h2>
+  <div class="quellenverzeichnis-content">
+    <ol class="quellen-list">
+      {{- range sort .Site.Data.quellen "titel" -}}
+      <li class="quellen-entry" id="quelle-{{ .id | urlize }}">
+        <span class="quellen-text">
+          {{- with .autor }}{{ . }}{{ end -}}
+          {{- with .jahr }} ({{ . }}){{ end -}}
+          {{- with .titel }}. <em>{{ . }}</em>{{ end -}}
+          {{- with .verlag }}. {{ . }}{{ end -}}
+          {{- with .url }}. <a href="{{ . }}">{{ . }}</a>{{ end -}}
+          {{- with .zugriff }} [Zugriff: {{ . }}]{{ end -}}
+        </span>
+      </li>
+      {{- end -}}
+    </ol>
+  </div>
+</section>
+{{- end -}}
+
 {{/* ========== MERMAID INITIALIZATION & PRINT READY ========== */}}
 <script>
 document.addEventListener('DOMContentLoaded', async function() {
   const printBtn = document.getElementById('printBtn');
   const printStatus = document.getElementById('printStatus');
+
+  // Rewrite glossary links to internal PDF anchors
+  // The shortcode generates absolute URLs like http://.../glossar/#glossar-api
+  // but in the PDF all content is on one page, so we use #glossar-api directly
+  document.querySelectorAll('a.glossary-link').forEach(function(link) {
+    const href = link.getAttribute('href');
+    const hashIndex = href.indexOf('#glossar-');
+    if (hashIndex !== -1) {
+      link.setAttribute('href', href.substring(hashIndex));
+    }
+  });
+
+  // Auto-generate Abbildungsverzeichnis from figures and diagrams in the document
+  (function() {
+    const container = document.getElementById('abbildungsverzeichnisContent');
+    const emptyMsg = document.getElementById('abbildungsverzeichnisEmpty');
+    if (!container) return;
+
+    const figures = document.querySelectorAll('figure.figure, figure.diagram');
+    if (figures.length === 0) return;
+
+    // Hide empty message and build list
+    if (emptyMsg) emptyMsg.style.display = 'none';
+
+    const list = document.createElement('ol');
+    list.className = 'abbildungsverzeichnis-list';
+
+    figures.forEach(function(fig) {
+      const figcaption = fig.querySelector('figcaption');
+      if (!figcaption) return;
+
+      const label = fig.querySelector('.figure-label, .diagram-label');
+      const caption = fig.querySelector('.figure-caption, .diagram-caption');
+      const id = fig.id;
+
+      const li = document.createElement('li');
+      li.className = 'abbildungsverzeichnis-entry';
+
+      const link = document.createElement('a');
+      link.href = '#' + id;
+      link.textContent = (label ? label.textContent : '') + ' ' + (caption ? caption.textContent : '');
+      li.appendChild(link);
+
+      list.appendChild(li);
+    });
+
+    container.appendChild(list);
+  })();
   
   // Initialize Mermaid
   mermaid.initialize({
