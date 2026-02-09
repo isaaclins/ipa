@@ -1,5 +1,5 @@
 ---
-title: "Teil 2: Hauptteil"
+title: "Hauptteil"
 description: "Konzeption und Implementation"
 weight: 2
 chapter: true
