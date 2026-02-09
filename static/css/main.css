@@ -389,9 +389,18 @@ blockquote {
 }
 
 .meta-table th {
-  background: none;
   font-weight: 600;
   padding-right: var(--spacing-xl);
+}
+
+.meta-table tr:nth-child(odd) th,
+.meta-table tr:nth-child(odd) td {
+  background-color: var(--color-background-alt);
+}
+
+.meta-table tr:nth-child(even) th,
+.meta-table tr:nth-child(even) td {
+  background-color: var(--color-background);
 }
 
 /* ============================================================================
