@@ -2,7 +2,8 @@
   Header Partial - Site Header and Navigation
   
   Contains site branding and main navigation menu.
-  Menu items are configured in hugo.toml.
+  Menu items are generated dynamically from content sections (sorted by weight).
+  No manual menu configuration in hugo.toml required.
 */ -}}
 
 <header class="site-header">
@@ -11,29 +12,34 @@
       <a href="{{ .Site.BaseURL }}" class="site-logo">
         <span class="logo-text">{{ .Site.Title }}</span>
       </a>
-      {{ with .Site.Params.ipaSubtitle }}
-      <span class="site-subtitle">{{ . }}</span>
-      {{ end }}
     </div>
     
     <nav class="main-navigation" aria-label="Hauptnavigation">
       <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
-        <span class="nav-toggle-icon"></span>
+        <span class="nav-toggle-icon">☰</span>
         <span class="sr-only">Menü</span>
       </button>
       
       <ul id="nav-menu" class="nav-menu">
-        {{- range .Site.Menus.main -}}
-        <li class="nav-item{{ if $.IsMenuCurrent "main" . }} active{{ end }}">
-          <a href="{{ .URL }}" class="nav-link">{{ .Name }}</a>
+        {{/* Home link */}}
+        <li class="nav-item{{ if .IsHome }} active{{ end }}">
+          <a href="{{ .Site.BaseURL }}" class="nav-link">Home</a>
         </li>
+
+        {{/* Dynamically iterate all content sections, sorted by weight */}}
+        {{- range .Site.Sections.ByWeight -}}
+          {{- if not (eq .Section "pdf") -}}
+          <li class="nav-item{{ if eq $.Section .Section }} active{{ end }}">
+            <a href="{{ .Permalink }}" class="nav-link">{{ .Title }}</a>
+          </li>
+          {{- end -}}
         {{- end -}}
         
-        {{/* PDF Download Link */}}
+        {{/* PDF link */}}
         {{ if .Site.Params.enablePDF }}
         <li class="nav-item nav-item-pdf">
           <a href="{{ "pdf/" | absURL }}" class="nav-link nav-link-pdf" target="_blank">
-            📄 PDF
+            PDF
           </a>
         </li>
         {{ end }}

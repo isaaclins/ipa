@@ -9,28 +9,29 @@
    CSS Variables / Design Tokens
    ============================================================================ */
 :root {
-  /* Colors */
-  --color-primary: #1a365d;
-  --color-primary-light: #2a4a7f;
-  --color-secondary: #2d3748;
-  --color-accent: #3182ce;
+  /* Colors — modus-operandi palette (from isaaclins.com) */
+  --color-primary: #000000;
+  --color-primary-light: #595959;
+  --color-secondary: #000000;
+  --color-accent: #3548cf;
+  --color-accent-visited: #8f0075;
   --color-success: #38a169;
   --color-warning: #d69e2e;
   --color-error: #e53e3e;
   
   --color-background: #ffffff;
-  --color-background-alt: #f7fafc;
+  --color-background-alt: #dae5ec;
   --color-surface: #ffffff;
-  --color-border: #e2e8f0;
+  --color-border: #000000;
   
-  --color-text: #1a202c;
-  --color-text-light: #4a5568;
-  --color-text-muted: #718096;
+  --color-text: #000000;
+  --color-text-light: #595959;
+  --color-text-muted: #595959;
   
-  /* Typography */
-  --font-family-base: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
-  --font-family-heading: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-family-mono: 'Consolas', 'Monaco', 'Andale Mono', monospace;
+  /* Typography — monospace (from isaaclins.com) */
+  --font-family-base: monospace;
+  --font-family-heading: monospace;
+  --font-family-mono: monospace;
   
   --font-size-base: 16px;
   --font-size-sm: 0.875rem;
@@ -55,7 +56,6 @@
   /* Layout */
   --max-width-content: 75ch;
   --max-width-wide: 1200px;
-  --header-height: 60px;
   
   /* Borders */
   --border-radius-sm: 4px;
@@ -143,9 +143,8 @@ pre {
   font-size: var(--font-size-sm);
   line-height: 1.5;
   padding: var(--spacing-lg);
-  background-color: #1e1e1e;
-  color: #d4d4d4;
-  border-radius: var(--border-radius-md);
+  background-color: var(--color-background);
+  color: var(--color-text);
   overflow-x: auto;
   margin: var(--spacing-lg) 0;
 }
@@ -206,23 +205,24 @@ blockquote {
   z-index: 100;
   background-color: var(--color-primary);
   color: white;
-  box-shadow: var(--shadow-md);
+  border-bottom: 1px solid white;
 }
 
 .header-content {
   max-width: var(--max-width-wide);
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
-  height: var(--header-height);
+  padding: var(--spacing-sm) var(--spacing-lg);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
 }
 
 .site-branding {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
+  flex-shrink: 0;
 }
 
 .site-logo {
@@ -230,14 +230,14 @@ blockquote {
   text-decoration: none;
 }
 
-.logo-text {
-  font-size: var(--font-size-xl);
-  font-weight: 700;
+.site-logo:hover {
+  color: white;
+  text-decoration: underline;
 }
 
-.site-subtitle {
-  font-size: var(--font-size-sm);
-  opacity: 0.8;
+.logo-text {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
 }
 
 /* Navigation */
@@ -248,10 +248,11 @@ blockquote {
 
 .nav-menu {
   display: flex;
+  flex-wrap: wrap;
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: var(--spacing-md);
+  gap: 0;
 }
 
 .nav-item {
@@ -260,36 +261,40 @@ blockquote {
 
 .nav-link {
   display: block;
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: var(--spacing-xs) var(--spacing-sm);
   color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
-  border-radius: var(--border-radius-sm);
-  transition: background-color var(--transition-fast);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+  transition: color var(--transition-fast);
 }
 
 .nav-link:hover,
 .nav-item.active .nav-link {
-  background-color: rgba(255, 255, 255, 0.1);
   color: white;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .nav-link-pdf {
-  background-color: var(--color-accent);
+  border: 1px solid white;
 }
 
 .nav-link-pdf:hover {
-  background-color: var(--color-primary-light);
+  background-color: rgba(255, 255, 255, 0.1);
+  text-decoration: none;
 }
 
 /* Mobile Navigation Toggle */
 .nav-toggle {
   display: none;
   background: none;
-  border: none;
+  border: 1px solid white;
   color: white;
   cursor: pointer;
-  padding: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-family: monospace;
+  font-size: var(--font-size-lg);
+  line-height: 1;
 }
 
 @media (max-width: 768px) {
@@ -299,17 +304,23 @@ blockquote {
   
   .nav-menu {
     position: absolute;
-    top: var(--header-height);
+    top: 100%;
     left: 0;
     right: 0;
     flex-direction: column;
+    flex-wrap: nowrap;
     background-color: var(--color-primary);
-    padding: var(--spacing-md);
+    border-top: 1px solid white;
+    padding: var(--spacing-sm);
     display: none;
   }
   
   .nav-menu.is-open {
     display: flex;
+  }
+
+  .nav-link {
+    padding: var(--spacing-sm);
   }
 }
 
@@ -320,7 +331,7 @@ blockquote {
   max-width: var(--max-width-wide);
   margin: 0 auto;
   padding: var(--spacing-xl) var(--spacing-lg);
-  min-height: calc(100vh - var(--header-height) - 200px);
+  min-height: 70vh;
 }
 
 /* ============================================================================

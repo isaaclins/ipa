@@ -19,19 +19,22 @@
   /* Running headers/footers */
   @top-center {
     content: string(chapter-title);
+    font-family: monospace;
     font-size: 10pt;
-    color: #666;
+    color: #595959;
   }
   
   @bottom-center {
     content: counter(page);
+    font-family: monospace;
     font-size: 10pt;
   }
   
   @bottom-right {
     content: "IPA Dokumentation";
+    font-family: monospace;
     font-size: 9pt;
-    color: #999;
+    color: #595959;
   }
 }
 
@@ -52,7 +55,7 @@
    Base Styles for Print
    ============================================================================ */
 .pdf-document {
-  font-family: 'Times New Roman', 'Georgia', serif;
+  font-family: monospace;
   font-size: 11pt;
   line-height: 1.5;
   color: #000;
@@ -116,12 +119,12 @@ p {
   font-weight: normal;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #333;
+  color: #595959;
 }
 
 #titelblatt .apprenticeship {
   font-size: 11pt;
-  color: #666;
+  color: #595959;
   margin-top: 0.5cm;
 }
 
@@ -139,7 +142,7 @@ p {
 #titelblatt .ipa-subtitle {
   font-size: 16pt;
   font-weight: normal;
-  color: #333;
+  color: #595959;
 }
 
 #titelblatt .meta-table {
@@ -190,6 +193,7 @@ p {
   color: #000;
   font-weight: bold;
   font-size: 12pt;
+  font-family: monospace;
 }
 
 .toc-chapter-link::after {
@@ -210,7 +214,7 @@ p {
   display: flex;
   justify-content: space-between;
   text-decoration: none;
-  color: #333;
+  color: #595959;
   font-size: 11pt;
 }
 
@@ -246,7 +250,7 @@ p {
   font-size: 10pt;
   text-transform: uppercase;
   letter-spacing: 0.3em;
-  color: #666;
+  color: #595959;
 }
 
 .chapter-num {
@@ -264,7 +268,7 @@ p {
 
 .chapter-description {
   font-size: 12pt;
-  color: #666;
+  color: #595959;
   max-width: 80%;
   margin-top: 1cm;
 }
@@ -279,12 +283,12 @@ p {
 .subchapter-header {
   margin-bottom: 1cm;
   padding-bottom: 0.5cm;
-  border-bottom: 1pt solid #ccc;
+  border-bottom: 1pt solid #000;
 }
 
 .subchapter-number {
   font-size: 12pt;
-  color: #666;
+  color: #595959;
   margin-bottom: 0.3cm;
 }
 
@@ -332,15 +336,15 @@ p {
 
 /* Links - show URL in print */
 a {
-  color: #000;
+  color: #3548cf;
   text-decoration: none;
-  border-bottom: 0.5pt solid #666;
+  border-bottom: 0.5pt solid #3548cf;
 }
 
 a[href^="http"]::after {
   content: " (" attr(href) ")";
   font-size: 9pt;
-  color: #666;
+  color: #595959;
   word-break: break-all;
 }
 
@@ -366,13 +370,13 @@ table {
 
 th, td {
   padding: 0.2cm 0.3cm;
-  border: 0.5pt solid #000;
+  border: thin solid #000;
   text-align: left;
   vertical-align: top;
 }
 
 th {
-  background-color: #f0f0f0;
+  background-color: #dae5ec;
   font-weight: bold;
 }
 
@@ -380,12 +384,12 @@ th {
    Code Blocks
    ============================================================================ */
 pre {
-  font-family: 'Courier New', monospace;
+  font-family: monospace;
   font-size: 9pt;
   line-height: 1.4;
   padding: 0.4cm;
-  background-color: #f5f5f5;
-  border: 0.5pt solid #ddd;
+  background-color: #dae5ec;
+  border: 0.5pt solid #000;
   page-break-inside: avoid;
   overflow-x: auto;
   white-space: pre-wrap;
@@ -393,9 +397,9 @@ pre {
 }
 
 code {
-  font-family: 'Courier New', monospace;
+  font-family: monospace;
   font-size: 9pt;
-  background-color: #f5f5f5;
+  background-color: #dae5ec;
   padding: 0.05cm 0.1cm;
 }
 
@@ -426,7 +430,7 @@ pre code {
 
 figcaption {
   font-size: 10pt;
-  color: #333;
+  color: #595959;
   margin-top: 0.3cm;
   text-align: center;
 }
@@ -466,7 +470,7 @@ pre.mermaid,
   page-break-inside: avoid;
   margin-bottom: 1cm;
   padding: 0.5cm;
-  border-left: 2pt solid #333;
+  border-left: 2pt solid #000;
   background: none;
 }
 
@@ -476,7 +480,7 @@ pre.mermaid,
   align-items: baseline;
   margin-bottom: 0.3cm;
   padding-bottom: 0.2cm;
-  border-bottom: 0.5pt solid #ccc;
+  border-bottom: 0.5pt solid #000;
 }
 
 .journal-header h3 {
@@ -486,7 +490,7 @@ pre.mermaid,
 
 .journal-meta {
   font-size: 10pt;
-  color: #666;
+  color: #595959;
 }
 
 .journal-meta time {
@@ -529,7 +533,7 @@ pre.mermaid,
 
 .glossar-definition {
   font-size: 10pt;
-  color: #333;
+  color: #595959;
   margin-left: 0;
 }
 
@@ -556,9 +560,9 @@ li input[type="checkbox"] {
 blockquote {
   margin: 0.5cm 0;
   padding: 0.3cm 0.5cm;
-  border-left: 2pt solid #333;
+  border-left: 2pt solid #000;
   font-style: italic;
-  color: #333;
+  color: #000;
   background: none;
 }
 
@@ -570,7 +574,7 @@ blockquote {
 }
 
 .glossary-link {
-  color: #000;
+  color: #3548cf;
   border-bottom: none;
 }
 

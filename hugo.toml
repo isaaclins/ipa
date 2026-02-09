@@ -7,7 +7,7 @@
 
 baseURL = 'https://isaaclins.com/ipa'
 languageCode = 'de-ch'
-title = 'Individuelle Praktische Arbeit von Isaac Manuel Lins'
+title = 'Schichtplanungs CLI für TDR'
 
 # ============================================================================
 # Build Settings
@@ -96,37 +96,9 @@ disableKinds = ['RSS']
 # ============================================================================
 # Menu Configuration
 # ============================================================================
-
-[menus]
-  [[menus.main]]
-    name = 'Home'
-    pageRef = '/'
-    weight = 10
-  
-  [[menus.main]]
-    name = 'Teil 1: Einleitung'
-    pageRef = '/part_1/'
-    weight = 20
-  
-  [[menus.main]]
-    name = 'Teil 2: Hauptteil'
-    pageRef = '/part_2/'
-    weight = 30
-  
-  [[menus.main]]
-    name = 'Teil 3: Schluss'
-    pageRef = '/part_3/'
-    weight = 40
-  
-  [[menus.main]]
-    name = 'Arbeitsjournal'
-    pageRef = '/arbeitsjournal/'
-    weight = 50
-  
-  [[menus.main]]
-    name = 'Glossar'
-    pageRef = '/glossar/'
-    weight = 60
+# Navigation is generated dynamically from content sections (sorted by weight).
+# No manual menu entries needed — just add a new folder under content/ with an
+# _index.md that has a title and weight in its front matter.
 
 # ============================================================================
 # Site Parameters
@@ -134,18 +106,29 @@ disableKinds = ['RSS']
 
 [params]
   # IPA Metadata - Pflichtfelder
-  autor = 'Isaac Lins'
   thema = 'Schichtplanungs CLI für TDR'
+  autor = 'Isaac Manuel Lins'
+  firma = 'Swisscom (Schweiz) AG'
+  abteilung = 'SCS-B2B-BIS-NSY-TDR-CYD'
+  berufsschule = 'Berufsbildungsschule Winterthur'
+
+  # Beteiligte Personen
+  validexperte = 'Thomas Albori'
+  hauptexperte = 'Yannick Schuitemaker'
+  nebenexperte = 'Dimosthenis Georgokitsos'
+  verantwortlicheFachkraft = 'Dimosthenis Georgokitsos'
+  berufsbildner = 'Thomas Albori'
+
+  # Ausbildung
+  fachrichtung = 'Applikationsentwickler'
+  projektvorgehensmodell = 'IPERKA'
+  jahrgangKanton = '2026 Zürich'
+
+  # Daten
+  ausgabedatum = '9. Februar 2026'
   datumVon = '09.03.2026'
   datumBis = '23.03.2026'
-  
-  # Beteiligte Personen
-  hauptexperte = 'Hauptexperte Name'
-  nebenexperte = 'Nebenexperte Name'
-  verantwortlicheFachkraft = 'Verantwortliche Fachkraft Name'
-  weitereFachlicheBegleitung = ''  # Optional - nur anzeigen wenn ausgefüllt
-  lernbegleiter = 'Lernbegleiter Name'
-  
+
   # Dokument-Metadaten
   version = '1.0'
   dokumentname = 'ipa-dokumentation-isaac-lins.pdf'

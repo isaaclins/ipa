@@ -18,40 +18,21 @@
     
     <div class="titelblatt-meta">
       <table class="meta-table">
-        <tr>
-          <th>Autor:</th>
-          <td>{{ .Site.Params.autor }}</td>
-        </tr>
-        <tr>
-          <th>Datum:</th>
-          <td>{{ .Site.Params.datumVon }} - {{ .Site.Params.datumBis }}</td>
-        </tr>
-        <tr>
-          <th>Hauptexperte:</th>
-          <td>{{ .Site.Params.hauptexperte }}</td>
-        </tr>
-        <tr>
-          <th>Nebenexperte:</th>
-          <td>{{ .Site.Params.nebenexperte }}</td>
-        </tr>
-        <tr>
-          <th>Verantwortliche Fachkraft:</th>
-          <td>{{ .Site.Params.verantwortlicheFachkraft }}</td>
-        </tr>
-        {{ with .Site.Params.weitereFachlicheBegleitung }}
-        <tr>
-          <th>Weitere Fachliche Begleitung:</th>
-          <td>{{ . }}</td>
-        </tr>
-        {{ end }}
-        <tr>
-          <th>Lernbegleiter:</th>
-          <td>{{ .Site.Params.lernbegleiter }}</td>
-        </tr>
-        <tr>
-          <th>Version:</th>
-          <td>{{ .Site.Params.version }}</td>
-        </tr>
+        <tr><th>Autor:</th><td>{{ .Site.Params.autor }}</td></tr>
+        <tr><th>Firma:</th><td>{{ .Site.Params.firma }}</td></tr>
+        <tr><th>Abteilung:</th><td>{{ .Site.Params.abteilung }}</td></tr>
+        <tr><th>Berufsschule:</th><td>{{ .Site.Params.berufsschule }}</td></tr>
+        <tr><th>Validexperte (VEX):</th><td>{{ .Site.Params.validexperte }}</td></tr>
+        <tr><th>Hauptexperte (HEX):</th><td>{{ .Site.Params.hauptexperte }}</td></tr>
+        <tr><th>Nebenexperte (NEX):</th><td>{{ .Site.Params.nebenexperte }}</td></tr>
+        <tr><th>Verantwortliche Fachkraft (VF):</th><td>{{ .Site.Params.verantwortlicheFachkraft }}</td></tr>
+        <tr><th>Berufsbildner:</th><td>{{ .Site.Params.berufsbildner }}</td></tr>
+        <tr><th>Fachrichtung:</th><td>{{ .Site.Params.fachrichtung }}</td></tr>
+        <tr><th>Projektvorgehensmodell:</th><td>{{ .Site.Params.projektvorgehensmodell }}</td></tr>
+        <tr><th>Jahrgang und Kanton:</th><td>{{ .Site.Params.jahrgangKanton }}</td></tr>
+        <tr><th>Ausgabedatum:</th><td>{{ .Site.Params.ausgabedatum }}</td></tr>
+        <tr><th>Datum:</th><td>{{ .Site.Params.datumVon }} - {{ .Site.Params.datumBis }}</td></tr>
+        <tr><th>Version:</th><td>{{ .Site.Params.version }}</td></tr>
       </table>
     </div>
     
