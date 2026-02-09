@@ -47,20 +47,30 @@
 <section class="home-navigation">
   <h2>Inhaltsverzeichnis</h2>
   <nav class="toc-overview">
-    {{ range .Site.Sections }}
-    {{ if not (eq .Section "pdf") }}
-    <div class="toc-section">
-      <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-      {{ if .Pages }}
-      <ul>
-        {{ range .Pages.ByWeight }}
-        <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
-        {{ end }}
-      </ul>
-      {{ end }}
-    </div>
-    {{ end }}
-    {{ end }}
+    {{- $num := 0 -}}
+    {{- range .Site.Sections.ByWeight -}}
+      {{- if not (eq .Section "pdf") -}}
+        {{- $num = add $num 1 -}}
+        <div class="toc-entry">
+          <a href="{{ .Permalink }}" class="toc-entry-link">
+            <span class="toc-entry-num">{{ $num }}.</span>
+            <span class="toc-entry-title">{{ .Title }}</span>
+          </a>
+          {{- if .Pages -}}
+          <ul class="toc-entry-sub">
+            {{- range $i, $page := .Pages.ByWeight -}}
+            <li>
+              <a href="{{ $page.Permalink }}">
+                <span class="toc-entry-num">{{ $num }}.{{ add $i 1 }}</span>
+                <span>{{ $page.Title }}</span>
+              </a>
+            </li>
+            {{- end -}}
+          </ul>
+          {{- end -}}
+        </div>
+      {{- end -}}
+    {{- end -}}
   </nav>
 </section>
 {{ end }}
