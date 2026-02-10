@@ -15,6 +15,7 @@ title = 'Schichtplanungs CLI für TDR'
 
 enableGitInfo = true
 enableRobotsTXT = true
+buildFuture = true
 disableKinds = ['RSS']
 
 # Automatically derive section order from filename prefixes
@@ -133,7 +134,7 @@ disableKinds = ['RSS']
   jahrgangKanton = '2026 Zürich'
 
   # Daten
-  ausgabedatum = '9. Februar 2026'
+  ausgabedatum = '23.03.2026'
   datumVon = '09.03.2026'
   datumBis = '23.03.2026'
 
@@ -150,7 +151,7 @@ disableKinds = ['RSS']
   enableKaTeX = false
   
   # Date Format (Swiss German)
-  dateFormat = '2. January 2006'
+  dateFormat = '28. March 2007'
 
 # ============================================================================
 # Privacy Settings (GDPR Compliance)
