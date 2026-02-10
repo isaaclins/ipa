@@ -120,6 +120,13 @@ disableKinds = ['RSS']
   verantwortlicheFachkraft = 'Dimosthenis Georgokitsos'
   berufsbildner = 'Thomas Albori'
 
+  # Kontakt
+  strasse = 'Förrlibuckstrasse 60/62'
+  plz = '8005'
+  ort = 'Zürich'
+  telefon = '+41 79 347 42 40'
+  email = 'isaac.lins@swisscom.com'
+
   # Ausbildung
   fachrichtung = 'Applikationsentwickler'
   projektvorgehensmodell = 'IPERKA'
