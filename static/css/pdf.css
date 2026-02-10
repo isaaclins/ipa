@@ -12,44 +12,7 @@
 /* ============================================================================
    Page Setup
    ============================================================================ */
-@page {
-  size: A4;
-  margin: 2.5cm 2cm;
-  
-  /* Running headers/footers */
-  @top-center {
-    content: string(chapter-title);
-    font-family: monospace;
-    font-size: 10pt;
-    color: #595959;
-  }
-  
-  @bottom-center {
-    content: counter(page);
-    font-family: monospace;
-    font-size: 10pt;
-  }
-  
-  @bottom-right {
-    content: "IPA Dokumentation";
-    font-family: monospace;
-    font-size: 9pt;
-    color: #595959;
-  }
-}
 
-/* First page - no header */
-@page :first {
-  @top-center { content: none; }
-  @bottom-center { content: none; }
-  @bottom-right { content: none; }
-}
-
-/* Title pages - no page numbers */
-@page title {
-  @top-center { content: none; }
-  @bottom-center { content: none; }
-}
 
 /* ============================================================================
    Base Styles for Print

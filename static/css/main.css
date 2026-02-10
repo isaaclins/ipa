@@ -129,30 +129,204 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Code */
+/* Code — Inline */
 code {
   font-family: var(--font-family-mono);
-  font-size: 0.9em;
-  padding: 0.2em 0.4em;
-  background-color: var(--color-background-alt);
-  border-radius: var(--border-radius-sm);
+  font-size: 0.85em;
+  padding: 0.15em 0.4em;
+  background-color: #f5f5f5;
+  color: #000;
+  border-radius: 0;
 }
 
+/* Code — Block */
 pre {
   font-family: var(--font-family-mono);
   font-size: var(--font-size-sm);
-  line-height: 1.5;
+  line-height: 1.6;
   padding: var(--spacing-lg);
-  background-color: var(--color-background);
-  color: var(--color-text);
+  background-color: #fff;
+  color: #000;
   overflow-x: auto;
-  margin: var(--spacing-lg) 0;
+  margin: var(--spacing-xl) 0;
+  border-radius: 0;
+  border-top: 3px solid #000;
+  border-bottom: 1px solid #ccc;
 }
 
 pre code {
   padding: 0;
   background: none;
+  color: inherit;
   font-size: inherit;
+}
+
+/* ---- Chroma Syntax Highlighting ---- */
+
+/* Wrapper */
+.highlight {
+  margin: var(--spacing-xl) 0;
+  position: relative;
+  border-top: 3px solid #000;
+  border-bottom: 1px solid #ccc;
+  background-color: #fff;
+  overflow-x: auto;
+}
+
+.highlight pre {
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+
+/* Chroma container */
+.chroma {
+  color: #000;
+  background-color: #fff;
+}
+
+/* Line number table layout */
+.chroma .lntable {
+  border-spacing: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  width: 100%;
+  overflow: auto;
+  display: block;
+}
+
+.chroma .lntd {
+  vertical-align: top;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+/* Line numbers column */
+.chroma .lntd:first-child {
+  width: 1%;
+  min-width: 3em;
+}
+
+.chroma .lntd:first-child pre {
+  padding: var(--spacing-lg) 0;
+  background-color: #f8f8f8;
+}
+
+/* Code column */
+.chroma .lntd:last-child pre {
+  padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-lg) var(--spacing-md);
+}
+
+/* Line numbers */
+.chroma .lnt,
+.chroma .ln {
+  white-space: pre;
+  -webkit-user-select: none;
+  user-select: none;
+  margin-right: 0;
+  padding: 0 0.8em 0 0.8em;
+  color: #999;
+  text-align: right;
+  display: block;
+  border-right: 1px solid #ddd;
+}
+
+.chroma .line {
+  display: flex;
+}
+
+.chroma .cl {
+  display: inline;
+}
+
+/* Line highlight */
+.chroma .hl {
+  background-color: #ffffcc;
+  display: block;
+  width: 100%;
+}
+
+/* ---- Syntax Token Colors (Brutalist Light) ---- */
+
+/* Keywords — bold black */
+.chroma .k  { font-weight: bold; }
+.chroma .kc { font-weight: bold; }
+.chroma .kd { font-weight: bold; }
+.chroma .kn { font-weight: bold; }
+.chroma .kp { font-weight: bold; }
+.chroma .kr { font-weight: bold; }
+.chroma .kt { font-weight: bold; font-style: italic; }
+
+/* Names */
+.chroma .na { color: #333; }
+.chroma .nc { font-weight: bold; }
+.chroma .nf { color: #000; }
+.chroma .fm { color: #000; }
+.chroma .ne { font-weight: bold; }
+.chroma .nd { color: #555; }
+.chroma .nx { color: #000; }
+.chroma .no { font-weight: bold; }
+.chroma .nt { font-weight: bold; }
+
+/* Strings */
+.chroma .s  { color: #555; }
+.chroma .sa { color: #555; }
+.chroma .sb { color: #555; }
+.chroma .sc { color: #555; }
+.chroma .dl { color: #555; }
+.chroma .sd { color: #555; font-style: italic; }
+.chroma .s2 { color: #555; }
+.chroma .se { color: #000; font-weight: bold; }
+.chroma .sh { color: #555; }
+.chroma .si { color: #333; }
+.chroma .sx { color: #555; }
+.chroma .sr { color: #555; }
+.chroma .s1 { color: #555; }
+.chroma .ss { color: #555; }
+
+/* Numbers */
+.chroma .m  { color: #333; }
+.chroma .mb { color: #333; }
+.chroma .mf { color: #333; }
+.chroma .mh { color: #333; }
+.chroma .mi { color: #333; }
+.chroma .il { color: #333; }
+.chroma .mo { color: #333; }
+.chroma .l  { color: #333; }
+.chroma .ld { color: #555; }
+
+/* Operators */
+.chroma .o  { color: #000; }
+.chroma .ow { font-weight: bold; }
+
+/* Comments — lighter, italic */
+.chroma .c  { color: #999; font-style: italic; }
+.chroma .ch { color: #999; font-style: italic; }
+.chroma .cm { color: #999; font-style: italic; }
+.chroma .c1 { color: #999; font-style: italic; }
+.chroma .cs { color: #999; font-style: italic; }
+.chroma .cp { color: #999; }
+.chroma .cpf { color: #999; }
+
+/* Punctuation */
+.chroma .p { color: #000; }
+
+/* Generic */
+.chroma .gd { color: #000; text-decoration: line-through; }
+.chroma .ge { font-style: italic; }
+.chroma .gi { color: #000; font-weight: bold; }
+.chroma .gs { font-weight: bold; }
+
+/* Error */
+.chroma .err { color: #000; background-color: transparent; text-decoration: underline; }
+
+/* Link for line numbers */
+.chroma .lnlinks {
+  outline: none;
+  text-decoration: none;
+  color: inherit;
 }
 
 /* Lists */
@@ -566,15 +740,18 @@ pre.mermaid,
 .mermaid {
   background: white;
   padding: var(--spacing-md);
-  border-radius: var(--border-radius-sm);
+  border-radius: 0;
   overflow-x: auto;
 }
 
 /* Reset pre styles for mermaid */
 pre.mermaid {
-  color: inherit;
+  color: #000;
+  background: white;
   font-family: inherit;
   line-height: inherit;
+  border-top: 3px solid #000;
+  border-bottom: 1px solid #ccc;
 }
 
 /* ============================================================================
@@ -682,19 +859,61 @@ pre.mermaid {
   font-weight: 700;
 }
 
+/* Timeline container with vertical connector line */
 .journal-timeline {
+  position: relative;
   display: grid;
   gap: var(--spacing-lg);
+  padding-left: 52px;
 }
 
+.journal-timeline::before {
+  content: '';
+  position: absolute;
+  left: 23px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--color-border);
+  opacity: 0.2;
+}
+
+/* Entry card — now an <a> so the whole card is clickable */
 .journal-entry {
+  position: relative;
   display: grid;
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: 80px 1fr;
   gap: var(--spacing-lg);
   padding: var(--spacing-lg);
   background-color: var(--color-background-alt);
   border-radius: var(--border-radius-md);
-  border-left: 4px solid var(--color-accent);
+  border-left: 3px solid var(--color-accent);
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.journal-entry:hover {
+  box-shadow: var(--shadow-md);
+  border-left-color: var(--color-primary);
+}
+
+/* Timeline dot on each entry */
+.journal-entry::before {
+  content: '';
+  position: absolute;
+  left: -37px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--color-background);
+  border: 2px solid var(--color-accent);
+}
+
+.journal-entry:hover::before {
+  background-color: var(--color-accent);
 }
 
 .entry-date {
@@ -725,7 +944,15 @@ pre.mermaid {
 
 .entry-content h2 {
   margin-top: 0;
+  margin-bottom: var(--spacing-xs);
   font-size: var(--font-size-xl);
+}
+
+.entry-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
 }
 
 .arbeitszeit-badge {
@@ -735,16 +962,15 @@ pre.mermaid {
   color: white;
   font-size: var(--font-size-sm);
   border-radius: var(--border-radius-sm);
-  margin-left: var(--spacing-sm);
 }
 
-.entry-summary {
-  color: var(--color-text-light);
-}
-
-.read-more {
+.tasks-done {
   font-size: var(--font-size-sm);
-  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.tasks-done::before {
+  content: '\2713\0020';
 }
 
 /* ============================================================================
@@ -960,10 +1186,22 @@ pre.mermaid {
     font-size: 4rem;
   }
   
+  .journal-timeline {
+    padding-left: 0;
+  }
+
+  .journal-timeline::before {
+    display: none;
+  }
+
   .journal-entry {
     grid-template-columns: 1fr;
   }
-  
+
+  .journal-entry::before {
+    display: none;
+  }
+
   .entry-date {
     flex-direction: row;
     gap: var(--spacing-sm);

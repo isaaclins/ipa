@@ -17,7 +17,6 @@
     initGlossaryTooltips();
     initSmoothScroll();
     initTocHighlight();
-    initMermaid();
   });
 
   /**
@@ -172,55 +171,6 @@
 
     headings.forEach(function(heading) {
       observer.observe(heading);
-    });
-  }
-
-  /**
-   * Initialize Mermaid Diagrams
-   */
-  function initMermaid() {
-    if (typeof mermaid === 'undefined') return;
-
-    mermaid.initialize({
-      startOnLoad: true,
-      theme: 'default',
-      securityLevel: 'loose',
-      flowchart: {
-        useMaxWidth: true,
-        htmlLabels: true,
-        curve: 'basis'
-      },
-      sequence: {
-        useMaxWidth: true,
-        diagramMarginX: 50,
-        diagramMarginY: 10,
-        actorMargin: 50,
-        width: 150,
-        height: 65,
-        boxMargin: 10,
-        boxTextMargin: 5,
-        noteMargin: 10,
-        messageMargin: 35
-      },
-      gantt: {
-        titleTopMargin: 25,
-        barHeight: 20,
-        barGap: 4,
-        topPadding: 50,
-        leftPadding: 75,
-        gridLineStartPadding: 35,
-        fontSize: 11,
-        numberSectionStyles: 4
-      },
-      er: {
-        diagramPadding: 20,
-        layoutDirection: 'TB',
-        minEntityWidth: 100,
-        minEntityHeight: 75,
-        entityPadding: 15,
-        stroke: 'gray',
-        fill: 'honeydew'
-      }
     });
   }
 

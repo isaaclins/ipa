@@ -29,18 +29,7 @@
 {{/* Print Stylesheet */}}
 <link rel="stylesheet" href="{{ "css/pdf.css" | absURL }}" media="print">
 
-{{/* Mermaid (for diagrams) */}}
-{{ if .Site.Params.enableMermaid }}
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-<script>
-  mermaid.initialize({
-    startOnLoad: true,
-    theme: 'default',
-    securityLevel: 'loose',
-    flowchart: { useMaxWidth: true, htmlLabels: true }
-  });
-</script>
-{{ end }}
+{{/* Mermaid is loaded lazily by the diagram shortcode — no global load needed */}}
 
 {{/* KaTeX (optional math support) */}}
 {{ if .Site.Params.enableKaTeX }}
