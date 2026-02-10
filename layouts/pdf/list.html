@@ -28,13 +28,19 @@ Quellenverzeichnis) */ -}}
         @top-center {
           content: none;
         }
-        @bottom-center {
-          content: none;
-        }
         @bottom-right {
           content: none;
         }
         @bottom-left {
+          content: none;
+        }
+        @top-right {
+          content: none;
+        }
+        @top-left {
+          content: none;
+        }
+        @top-center {
           content: none;
         }
       }
@@ -42,9 +48,6 @@ Quellenverzeichnis) */ -}}
       /* Title pages - no page numbers */
       @page title {
         @top-center {
-          content: none;
-        }
-        @bottom-center {
           content: none;
         }
       }
@@ -59,25 +62,48 @@ Quellenverzeichnis) */ -}}
           font-family: monospace;
           font-size: 10pt;
           color: #595959;
+          white-space: pre-line; /* for line breaks USING \A */
         }
 
         @bottom-left {
-          content: "\00a9  {{ .Site.Params.autor }}, All rights reserved";
+          content: "{{ .Site.Params.strasse }}\A  {{ .Site.Params.plz }}, {{ .Site.Params.ort }}";
           font-family: monospace;
           font-size: 9pt;
+          text-align: start; /* left align text*/
           color: #595959;
+          white-space: pre-line; /* for line breaks USING \A */
+        }
+        @top-left {
+          content: "{{ .Site.Params.firma }}\A  {{ .Site.Params.autor }}\A {{ .Site.Params.abteilung }}";
+          font-family: monospace;
+          font-size: 9pt;
+          text-align: start; /* left align text*/
+          color: #595959;
+          white-space: pre-line; /* for line breaks USING \A */
+        }
+
+        @top-right {
+          content: "{{ .Site.Params.thema}}";
+          font-family: monospace;
+          font-size: 9pt;
+          text-align: end; /* right align text*/
+          color: #595959;
+          white-space: pre-line; /* for line breaks USING \A */
         }
         @bottom-right {
-          content: "IPA {{ .Site.Params.autor }}";
+          content: "Datum: {{ .Site.Params.ausgabedatum }}\ATelefon: {{ .Site.Params.telefon}}\A Email:{{ .Site.Params.email}}";
           font-family: monospace;
           font-size: 9pt;
+          text-align: end; /* right align text*/
           color: #595959;
+          white-space: pre-line; /* for line breaks USING \A */
         }
 
         @bottom-center {
-          content: counter(page);
+          content: counter(page) " von " counter(pages);
           font-family: monospace;
           font-size: 10pt;
+          white-space: pre-line; /* for line breaks USING \A */
         }
       }
 
