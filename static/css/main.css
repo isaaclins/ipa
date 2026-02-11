@@ -18,21 +18,21 @@
   --color-success: #38a169;
   --color-warning: #d69e2e;
   --color-error: #e53e3e;
-  
+
   --color-background: #ffffff;
   --color-background-alt: #dae5ec;
   --color-surface: #ffffff;
   --color-border: #000000;
-  
+
   --color-text: #000000;
   --color-text-light: #595959;
   --color-text-muted: #595959;
-  
+
   /* Typography — monospace (from isaaclins.com) */
   --font-family-base: monospace;
   --font-family-heading: monospace;
   --font-family-mono: monospace;
-  
+
   --font-size-base: 16px;
   --font-size-sm: 0.875rem;
   --font-size-lg: 1.125rem;
@@ -40,10 +40,10 @@
   --font-size-2xl: 1.5rem;
   --font-size-3xl: 1.875rem;
   --font-size-4xl: 2.25rem;
-  
+
   --line-height-base: 1.6;
   --line-height-heading: 1.2;
-  
+
   /* Spacing */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
@@ -52,21 +52,21 @@
   --spacing-xl: 2rem;
   --spacing-2xl: 3rem;
   --spacing-3xl: 4rem;
-  
+
   /* Layout */
   --max-width-content: 75ch;
   --max-width-wide: 1200px;
-  
+
   /* Borders */
   --border-radius-sm: 4px;
   --border-radius-md: 8px;
   --border-radius-lg: 12px;
-  
+
   /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  
+
   /* Transitions */
   --transition-fast: 150ms ease;
   --transition-base: 200ms ease;
@@ -75,7 +75,9 @@
 /* ============================================================================
    Reset & Base Styles
    ============================================================================ */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -97,7 +99,12 @@ body {
 /* ============================================================================
    Typography
    ============================================================================ */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-family-heading);
   font-weight: 600;
   line-height: var(--line-height-heading);
@@ -106,12 +113,24 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: var(--spacing-md);
 }
 
-h1 { font-size: var(--font-size-4xl); }
-h2 { font-size: var(--font-size-3xl); }
-h3 { font-size: var(--font-size-2xl); }
-h4 { font-size: var(--font-size-xl); }
-h5 { font-size: var(--font-size-lg); }
-h6 { font-size: var(--font-size-base); }
+h1 {
+  font-size: var(--font-size-4xl);
+}
+h2 {
+  font-size: var(--font-size-3xl);
+}
+h3 {
+  font-size: var(--font-size-2xl);
+}
+h4 {
+  font-size: var(--font-size-xl);
+}
+h5 {
+  font-size: var(--font-size-lg);
+}
+h6 {
+  font-size: var(--font-size-base);
+}
 
 p {
   margin-top: 0;
@@ -216,7 +235,8 @@ pre code {
 
 /* Code column */
 .chroma .lntd:last-child pre {
-  padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-lg) var(--spacing-md);
+  padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-lg)
+    var(--spacing-md);
 }
 
 /* Line numbers */
@@ -251,76 +271,196 @@ pre code {
 /* ---- Syntax Token Colors (Brutalist Light) ---- */
 
 /* Keywords — bold black */
-.chroma .k  { font-weight: bold; }
-.chroma .kc { font-weight: bold; }
-.chroma .kd { font-weight: bold; }
-.chroma .kn { font-weight: bold; }
-.chroma .kp { font-weight: bold; }
-.chroma .kr { font-weight: bold; }
-.chroma .kt { font-weight: bold; font-style: italic; }
+.chroma .k {
+  font-weight: bold;
+}
+.chroma .kc {
+  font-weight: bold;
+}
+.chroma .kd {
+  font-weight: bold;
+}
+.chroma .kn {
+  font-weight: bold;
+}
+.chroma .kp {
+  font-weight: bold;
+}
+.chroma .kr {
+  font-weight: bold;
+}
+.chroma .kt {
+  font-weight: bold;
+  font-style: italic;
+}
 
 /* Names */
-.chroma .na { color: #333; }
-.chroma .nc { font-weight: bold; }
-.chroma .nf { color: #000; }
-.chroma .fm { color: #000; }
-.chroma .ne { font-weight: bold; }
-.chroma .nd { color: #555; }
-.chroma .nx { color: #000; }
-.chroma .no { font-weight: bold; }
-.chroma .nt { font-weight: bold; }
+.chroma .na {
+  color: #333;
+}
+.chroma .nc {
+  font-weight: bold;
+}
+.chroma .nf {
+  color: #000;
+}
+.chroma .fm {
+  color: #000;
+}
+.chroma .ne {
+  font-weight: bold;
+}
+.chroma .nd {
+  color: #555;
+}
+.chroma .nx {
+  color: #000;
+}
+.chroma .no {
+  font-weight: bold;
+}
+.chroma .nt {
+  font-weight: bold;
+}
 
 /* Strings */
-.chroma .s  { color: #555; }
-.chroma .sa { color: #555; }
-.chroma .sb { color: #555; }
-.chroma .sc { color: #555; }
-.chroma .dl { color: #555; }
-.chroma .sd { color: #555; font-style: italic; }
-.chroma .s2 { color: #555; }
-.chroma .se { color: #000; font-weight: bold; }
-.chroma .sh { color: #555; }
-.chroma .si { color: #333; }
-.chroma .sx { color: #555; }
-.chroma .sr { color: #555; }
-.chroma .s1 { color: #555; }
-.chroma .ss { color: #555; }
+.chroma .s {
+  color: #555;
+}
+.chroma .sa {
+  color: #555;
+}
+.chroma .sb {
+  color: #555;
+}
+.chroma .sc {
+  color: #555;
+}
+.chroma .dl {
+  color: #555;
+}
+.chroma .sd {
+  color: #555;
+  font-style: italic;
+}
+.chroma .s2 {
+  color: #555;
+}
+.chroma .se {
+  color: #000;
+  font-weight: bold;
+}
+.chroma .sh {
+  color: #555;
+}
+.chroma .si {
+  color: #333;
+}
+.chroma .sx {
+  color: #555;
+}
+.chroma .sr {
+  color: #555;
+}
+.chroma .s1 {
+  color: #555;
+}
+.chroma .ss {
+  color: #555;
+}
 
 /* Numbers */
-.chroma .m  { color: #333; }
-.chroma .mb { color: #333; }
-.chroma .mf { color: #333; }
-.chroma .mh { color: #333; }
-.chroma .mi { color: #333; }
-.chroma .il { color: #333; }
-.chroma .mo { color: #333; }
-.chroma .l  { color: #333; }
-.chroma .ld { color: #555; }
+.chroma .m {
+  color: #333;
+}
+.chroma .mb {
+  color: #333;
+}
+.chroma .mf {
+  color: #333;
+}
+.chroma .mh {
+  color: #333;
+}
+.chroma .mi {
+  color: #333;
+}
+.chroma .il {
+  color: #333;
+}
+.chroma .mo {
+  color: #333;
+}
+.chroma .l {
+  color: #333;
+}
+.chroma .ld {
+  color: #555;
+}
 
 /* Operators */
-.chroma .o  { color: #000; }
-.chroma .ow { font-weight: bold; }
+.chroma .o {
+  color: #000;
+}
+.chroma .ow {
+  font-weight: bold;
+}
 
 /* Comments — lighter, italic */
-.chroma .c  { color: #999; font-style: italic; }
-.chroma .ch { color: #999; font-style: italic; }
-.chroma .cm { color: #999; font-style: italic; }
-.chroma .c1 { color: #999; font-style: italic; }
-.chroma .cs { color: #999; font-style: italic; }
-.chroma .cp { color: #999; }
-.chroma .cpf { color: #999; }
+.chroma .c {
+  color: #999;
+  font-style: italic;
+}
+.chroma .ch {
+  color: #999;
+  font-style: italic;
+}
+.chroma .cm {
+  color: #999;
+  font-style: italic;
+}
+.chroma .c1 {
+  color: #999;
+  font-style: italic;
+}
+.chroma .cs {
+  color: #999;
+  font-style: italic;
+}
+.chroma .cp {
+  color: #999;
+}
+.chroma .cpf {
+  color: #999;
+}
 
 /* Punctuation */
-.chroma .p { color: #000; }
+.chroma .p {
+  color: #000;
+}
 
 /* Generic */
-.chroma .gd { color: #000; text-decoration: line-through; }
-.chroma .ge { font-style: italic; }
-.chroma .gi { color: #000; font-weight: bold; }
-.chroma .gs { font-weight: bold; }
+.chroma .gd {
+  color: #000;
+  text-decoration: line-through;
+}
+.chroma .ge {
+  font-style: italic;
+}
+.chroma .gi {
+  color: #000;
+  font-weight: bold;
+}
+.chroma .gs {
+  font-weight: bold;
+}
 
 /* Error */
-.chroma .err { color: #000; background-color: transparent; text-decoration: underline; }
+.chroma .err {
+  color: #000;
+  background-color: transparent;
+  text-decoration: underline;
+}
 
 /* Link for line numbers */
 .chroma .lnlinks {
@@ -330,7 +470,8 @@ pre code {
 }
 
 /* Lists */
-ul, ol {
+ul,
+ol {
   margin: var(--spacing-md) 0;
   padding-left: var(--spacing-xl);
 }
@@ -346,7 +487,8 @@ table {
   margin: var(--spacing-lg) 0;
 }
 
-th, td {
+th,
+td {
   padding: var(--spacing-sm) var(--spacing-md);
   border: 1px solid var(--color-border);
   text-align: left;
@@ -475,7 +617,7 @@ blockquote {
   .nav-toggle {
     display: block;
   }
-  
+
   .nav-menu {
     position: absolute;
     top: 100%;
@@ -488,7 +630,7 @@ blockquote {
     padding: var(--spacing-sm);
     display: none;
   }
-  
+
   .nav-menu.is-open {
     display: flex;
   }
@@ -832,12 +974,6 @@ pre.mermaid {
 }
 
 /* ============================================================================
-   Arbeitsjournal (Work Journal)
-   ============================================================================ */
-
-
-
-/* ============================================================================
    Section TOC
    ============================================================================ */
 .section-toc {
@@ -862,7 +998,8 @@ pre.mermaid {
   background-color: var(--color-background-alt);
   border-radius: var(--border-radius-md);
   text-decoration: none;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition: transform var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .chapter-list a:hover {
@@ -1036,20 +1173,20 @@ pre.mermaid {
   :root {
     --font-size-base: 15px;
   }
-  
+
   .titelblatt {
     min-height: auto;
     padding: var(--spacing-2xl) 0;
   }
-  
+
   .ipa-title {
     font-size: var(--font-size-2xl);
   }
-  
+
   .chapter-num {
     font-size: 4rem;
   }
-  
+
   .journal-timeline {
     padding-left: 0;
   }
@@ -1071,7 +1208,7 @@ pre.mermaid {
     gap: var(--spacing-sm);
     text-align: left;
   }
-  
+
   .entry-date time {
     flex-direction: row;
     align-items: baseline;
