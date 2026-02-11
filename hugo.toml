@@ -151,7 +151,7 @@ disableKinds = ['RSS']
   enableKaTeX = false
   
   # Date Format (Swiss German)
-  dateFormat = '28. March 2007'
+  dateFormat = '2. January 2006'
 
 # ============================================================================
 # Privacy Settings (GDPR Compliance)
