@@ -2,7 +2,8 @@
 title: "Vorwort"
 description: ""
 weight: 2
-chapter: true
+# chapter: true = Kapitel X + counts in numbering; chapter: false = title only, still in TOC
+chapter: false
 ---
 
 Diese Dokumentation gehört zur IPA von {{< param "autor" >}}, die bei der Firma {{< param "firma">}} am

@@ -8,12 +8,21 @@
 */ -}}
 
 {{ define "main" }}
-{{- /* Calculate chapter number from parent section */ -}}
+{{- /* Chapter number from parent section (only counts sections with chapter: true) */ -}}
 {{- $chapterNum := 0 -}}
 {{- $parent := .Parent -}}
-{{- range $i, $section := .Site.Sections -}}
-  {{- if and $parent (eq $section.File.Dir $parent.File.Dir) -}}
-    {{- $chapterNum = add $i 1 -}}
+{{- if $parent -}}
+  {{- $count := 0 -}}
+  {{- range .Site.Sections.ByWeight -}}
+    {{- if eq .File.Dir $parent.File.Dir -}}
+      {{- if ne false .Params.chapter -}}
+        {{- $chapterNum = add $count 1 -}}
+      {{- end -}}
+      {{- break -}}
+    {{- end -}}
+    {{- if ne false .Params.chapter -}}
+      {{- $count = add $count 1 -}}
+    {{- end -}}
   {{- end -}}
 {{- end -}}
 

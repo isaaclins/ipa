@@ -3,14 +3,19 @@
   
   Handles both chapter title pages (_index.md) and section listings.
   Supports automatic chapter numbering via section index.
-  Detects 'chapter: true' in front matter for chapter title pages.
+  Param 'chapter: true' shows "Kapitel X"; 'chapter: false' shows title only.
+  Chapter number counts only sections with chapter: true.
 */ -}}
 
 {{ define "main" }}
 {{- $sectionIndex := 0 -}}
-{{- range $i, $section := .Site.Sections -}}
-  {{- if eq $section.File.Dir $.File.Dir -}}
-    {{- $sectionIndex = add $i 1 -}}
+{{- $chapterIndex := 0 -}}
+{{- range .Site.Sections.ByWeight -}}
+  {{- if ne false .Params.chapter -}}
+    {{- $chapterIndex = add $chapterIndex 1 -}}
+  {{- end -}}
+  {{- if eq .File.Dir $.File.Dir -}}
+    {{- $sectionIndex = $chapterIndex -}}
   {{- end -}}
 {{- end -}}
 

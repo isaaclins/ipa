@@ -253,12 +253,13 @@ Quellenverzeichnis) */ -}}
     <section id="toc" class="toc pdf-section">
       <h1>Inhaltsverzeichnis</h1>
       <nav class="toc-content">
-        {{- $chapterNum := 0 -}} {{- range .Site.Sections -}} {{- if and (not
-        (eq .Section "pdf")) (not (eq .Section "glossar")) (not (eq .Section
-        "arbeitsjournal")) -}} {{- $chapterNum = add $chapterNum 1 -}}
+        {{- $tocNum := 0 -}}
+        {{- range .Site.Sections.ByWeight -}}
+        {{- if and (not (eq .Section "pdf")) (not (eq .Section "glossar")) (not (eq .Section "arbeitsjournal")) -}}
+        {{- $tocNum = add $tocNum 1 -}}
         <div class="toc-chapter">
           <a href="#{{ .Section }}" class="toc-chapter-link">
-            <span class="toc-num">{{ $chapterNum }}.</span>
+            <span class="toc-num">{{ $tocNum }}.</span>
             <span class="toc-title">{{ .Title }}</span>
           </a>
           {{- if .Pages -}}
@@ -266,9 +267,7 @@ Quellenverzeichnis) */ -}}
             {{- range $subNum, $page := .Pages.ByWeight -}}
             <li>
               <a href="#{{ $page.File.ContentBaseName }}">
-                <span class="toc-num"
-                  >{{ $chapterNum }}.{{ add $subNum 1 }}</span
-                >
+                <span class="toc-num">{{ $tocNum }}.{{ add $subNum 1 }}</span>
                 <span class="toc-title">{{ $page.Title }}</span>
               </a>
             </li>
@@ -312,11 +311,18 @@ Quellenverzeichnis) */ -}}
       </nav>
     </section>
 
-    {{/* ========== MAIN CONTENT - ALL PARTS ========== */}} {{- $chapterNum :=
-    0 -}} {{- range .Site.Sections -}} {{- if and (not (eq .Section "pdf")) (not
-    (eq .Section "glossar")) (not (eq .Section "arbeitsjournal")) -}} {{-
-    $chapterNum = add $chapterNum 1 -}} {{/* Chapter Title Page */}}
+    {{/* ========== MAIN CONTENT - ALL PARTS ========== */}}
+    {{/* $chapterNum only increments for sections with chapter: true */}}
+    {{- $chapterNum := 0 -}}
+    {{- range .Site.Sections.ByWeight -}}
+    {{- if and (not (eq .Section "pdf")) (not (eq .Section "glossar")) (not (eq .Section "arbeitsjournal")) -}}
+    {{- $isChapter := ne false .Params.chapter -}}
+    {{- if $isChapter -}}
+    {{- $chapterNum = add $chapterNum 1 -}}
+    {{- end -}}
     <section id="{{ .Section }}" class="chapter pdf-section">
+      {{- if $isChapter -}}
+      {{/* Chapter Title Page with "Kapitel X" */}}
       <div class="chapter-title-page">
         <div class="chapter-number">
           <span class="chapter-label">Kapitel</span>
@@ -327,26 +333,35 @@ Quellenverzeichnis) */ -}}
         <p class="chapter-description">{{ . }}</p>
         {{ end }}
       </div>
+      {{- else -}}
+      {{/* Section without chapter number (e.g. Vorwort) */}}
+      <div class="chapter-title-page">
+        <h1 class="chapter-title">{{ .Title }}</h1>
+        {{ with .Description }}
+        <p class="chapter-description">{{ . }}</p>
+        {{ end }}
+      </div>
+      {{- end -}}
 
       {{ with .Content }}
       <div class="chapter-intro">{{ . }}</div>
       {{ end }}
     </section>
 
-    {{/* Subchapters */}} {{- range $subNum, $page := .Pages.ByWeight -}}
-    <section
-      id="{{ $page.File.ContentBaseName }}"
-      class="subchapter pdf-section"
-    >
+    {{/* Subchapters - only numbered when parent has chapter: true */}}
+    {{- range $subNum, $page := .Pages.ByWeight -}}
+    <section id="{{ $page.File.ContentBaseName }}" class="subchapter pdf-section">
       <header class="subchapter-header">
-        <div class="subchapter-number">
-          {{ $chapterNum }}.{{ add $subNum 1 }}
-        </div>
+        {{- if $isChapter -}}
+        <div class="subchapter-number">{{ $chapterNum }}.{{ add $subNum 1 }}</div>
+        {{- end -}}
         <h2 class="subchapter-title">{{ $page.Title }}</h2>
       </header>
       <div class="subchapter-content">{{ $page.Content }}</div>
     </section>
-    {{- end -}} {{- end -}} {{- end -}} {{/* ========== ARBEITSJOURNAL
+    {{- end -}}
+    {{- end -}}
+    {{- end -}} {{/* ========== ARBEITSJOURNAL
     ========== */}} {{- with .Site.GetPage "/arbeitsjournal" -}} {{/* Title page
     - standalone */}}
     <section id="arbeitsjournal" class="arbeitsjournal pdf-section">
