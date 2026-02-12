@@ -159,6 +159,7 @@ Quellenverzeichnis) */ -}}
         }
       }
     </style>
+
   </head>
   <body class="pdf-document">
     {{/* Print Controls */}}
@@ -255,22 +256,48 @@ Quellenverzeichnis) */ -}}
       <nav class="toc-content">
         {{- $tocNum := 0 -}}
         {{- range .Site.Sections.ByWeight -}}
-        {{- if and (not (eq .Section "pdf")) (not (eq .Section "glossar")) (not (eq .Section "arbeitsjournal")) -}}
+        {{- if and (not (eq .Section "pdf")) (not (eq .Section "glossar")) (not (hasSuffix .Section "arbeitsjournal")) -}}
+        {{- $isChapter := ne false .Params.chapter -}}
+        {{- if $isChapter -}}
         {{- $tocNum = add $tocNum 1 -}}
+        {{- end -}}
         <div class="toc-chapter">
           <a href="#{{ .Section }}" class="toc-chapter-link">
+            {{- if $isChapter -}}
             <span class="toc-num">{{ $tocNum }}.</span>
+            {{- end -}}
             <span class="toc-title">{{ .Title }}</span>
+            <span class="toc-leader" aria-hidden="true"></span>
+            <span class="toc-page"></span>
           </a>
           {{- if .Pages -}}
           <ul class="toc-subchapters">
+            {{- if hasSuffix .Section "arbeitsjournal" -}}
+            {{- range $subNum, $page := .Pages.ByDate -}}
+            <li>
+              <a href="#{{ $page.File.ContentBaseName }}">
+                {{- if $isChapter -}}
+                <span class="toc-num">{{ $tocNum }}.{{ add $subNum 1 }}</span>
+                {{- end -}}
+                <span class="toc-title">{{ $page.Title }}</span>
+                <span class="toc-leader" aria-hidden="true"></span>
+                <span class="toc-page"></span>
+              </a>
+            </li>
+            {{- end -}}
+            {{- else -}}
             {{- range $subNum, $page := .Pages.ByWeight -}}
             <li>
               <a href="#{{ $page.File.ContentBaseName }}">
+                {{- if $isChapter -}}
                 <span class="toc-num">{{ $tocNum }}.{{ add $subNum 1 }}</span>
+                {{- end -}}
                 <span class="toc-title">{{ $page.Title }}</span>
+                <span class="toc-leader" aria-hidden="true"></span>
+                <span class="toc-page"></span>
               </a>
             </li>
+            {{- end -}}
             {{- end -}}
           </ul>
           {{- end -}}
@@ -280,29 +307,39 @@ Quellenverzeichnis) */ -}}
         <div class="toc-chapter">
           <a href="#arbeitsjournal" class="toc-chapter-link">
             <span class="toc-title">Arbeitsjournal</span>
+            <span class="toc-leader" aria-hidden="true"></span>
+            <span class="toc-page"></span>
           </a>
         </div>
         {{- end -}} {{/* Verzeichnisse in TOC */}}
         <div class="toc-chapter">
           <a href="#verzeichnisse" class="toc-chapter-link">
             <span class="toc-title">Verzeichnisse</span>
+            <span class="toc-leader" aria-hidden="true"></span>
+            <span class="toc-page"></span>
           </a>
           <ul class="toc-subchapters">
             <li>
               <a href="#abbildungsverzeichnis">
                 <span class="toc-title">Abbildungsverzeichnis</span>
+                <span class="toc-leader" aria-hidden="true"></span>
+                <span class="toc-page"></span>
               </a>
             </li>
             {{- with .Site.GetPage "/glossar" -}}
             <li>
               <a href="#glossar">
                 <span class="toc-title">Glossar</span>
+                <span class="toc-leader" aria-hidden="true"></span>
+                <span class="toc-page"></span>
               </a>
             </li>
             {{- end -}} {{- if $.Site.Data.quellen -}}
             <li>
               <a href="#quellenverzeichnis">
                 <span class="toc-title">Quellenverzeichnis</span>
+                <span class="toc-leader" aria-hidden="true"></span>
+                <span class="toc-page"></span>
               </a>
             </li>
             {{- end -}}
@@ -315,7 +352,7 @@ Quellenverzeichnis) */ -}}
     {{/* $chapterNum only increments for sections with chapter: true */}}
     {{- $chapterNum := 0 -}}
     {{- range .Site.Sections.ByWeight -}}
-    {{- if and (not (eq .Section "pdf")) (not (eq .Section "glossar")) (not (eq .Section "arbeitsjournal")) -}}
+    {{- if and (not (eq .Section "pdf")) (not (eq .Section "glossar")) (not (hasSuffix .Section "arbeitsjournal")) -}}
     {{- $isChapter := ne false .Params.chapter -}}
     {{- if $isChapter -}}
     {{- $chapterNum = add $chapterNum 1 -}}
@@ -349,6 +386,19 @@ Quellenverzeichnis) */ -}}
     </section>
 
     {{/* Subchapters - only numbered when parent has chapter: true */}}
+    {{- if hasSuffix .Section "arbeitsjournal" -}}
+    {{- range $subNum, $page := .Pages.ByDate -}}
+    <section id="{{ $page.File.ContentBaseName }}" class="subchapter pdf-section">
+      <header class="subchapter-header">
+        {{- if $isChapter -}}
+        <div class="subchapter-number">{{ $chapterNum }}.{{ add $subNum 1 }}</div>
+        {{- end -}}
+        <h2 class="subchapter-title">{{ $page.Title }}</h2>
+      </header>
+      <div class="subchapter-content">{{ $page.Content }}</div>
+    </section>
+    {{- end -}}
+    {{- else -}}
     {{- range $subNum, $page := .Pages.ByWeight -}}
     <section id="{{ $page.File.ContentBaseName }}" class="subchapter pdf-section">
       <header class="subchapter-header">
@@ -359,6 +409,7 @@ Quellenverzeichnis) */ -}}
       </header>
       <div class="subchapter-content">{{ $page.Content }}</div>
     </section>
+    {{- end -}}
     {{- end -}}
     {{- end -}}
     {{- end -}} {{/* ========== ARBEITSJOURNAL
@@ -454,6 +505,7 @@ Quellenverzeichnis) */ -}}
       document.addEventListener("DOMContentLoaded", async function () {
         const printBtn = document.getElementById("printBtn");
         const printStatus = document.getElementById("printStatus");
+        const printControls = document.querySelector(".print-controls");
 
         // Rewrite glossary links to internal PDF anchors
         // The shortcode generates absolute URLs like http://.../glossar/#glossar-api
@@ -539,12 +591,42 @@ Quellenverzeichnis) */ -}}
             );
           }
 
+          // Compute TOC page numbers based on print page content height (A4 minus margins)
+          const mmToPx = (mm) => {
+            const probe = document.createElement("div");
+            probe.style.position = "absolute";
+            probe.style.visibility = "hidden";
+            probe.style.height = `${mm}mm`;
+            document.body.appendChild(probe);
+            const px = probe.getBoundingClientRect().height;
+            probe.remove();
+            return px;
+          };
+
+          const pageContentHeightPx = mmToPx(247); // A4(297mm) - top/bottom margins(25mm each)
+          document.querySelectorAll("#toc a[href^='#']").forEach((link) => {
+            const pageSlot = link.querySelector(".toc-page");
+            const href = link.getAttribute("href");
+            if (!pageSlot || !href || href.length < 2) return;
+
+            const target = document.getElementById(href.slice(1));
+            if (!target) return;
+
+            const top = target.getBoundingClientRect().top + window.scrollY;
+            const page = Math.max(1, Math.floor(top / pageContentHeightPx) + 1);
+            pageSlot.textContent = String(page);
+          });
+
           // All ready
           printStatus.textContent = "✓ Bereit zum Drucken";
           printStatus.style.background = "#dae5ec";
           printBtn.disabled = false;
         } catch (error) {
           console.error("Rendering error:", error);
+          // Re-append controls if detached during Paged.js attempt
+          if (printControls && !document.contains(printControls)) {
+            document.body.appendChild(printControls);
+          }
           printStatus.textContent = "⚠ Fehler - trotzdem drucken möglich";
           printStatus.style.background = "#dae5ec";
           printBtn.disabled = false;

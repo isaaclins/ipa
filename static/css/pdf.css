@@ -164,16 +164,12 @@
   
   .toc-chapter-link {
     display: flex;
-    justify-content: space-between;
+    align-items: space-between;
     text-decoration: none;
     color: #000;
     font-weight: bold;
     font-size: 12pt;
     font-family: monospace;
-  }
-  
-  .toc-chapter-link::after {
-    content: leader('.') target-counter(attr(href), page);
   }
   
   .toc-subchapters {
@@ -188,20 +184,27 @@
   
   .toc-subchapters a {
     display: flex;
-    justify-content: space-between;
+    align-items: baseline;
     text-decoration: none;
     color: #595959;
     font-size: 11pt;
-  }
-  
-  .toc-subchapters a::after {
-    content: leader('.') target-counter(attr(href), page);
   }
   
   .toc-num {
     margin-right: 0.5cm;
     width: 1.5cm;
     display: inline-block;
+  }
+
+  .toc-leader {
+    flex: 1;
+    margin: 0 0.2cm;
+    transform: translateY(-0.2em);
+  }
+
+  .toc-page {
+    min-width: 1.8em;
+    text-align: right;
   }
   
   /* ============================================================================
