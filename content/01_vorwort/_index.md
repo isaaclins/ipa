@@ -13,3 +13,5 @@ Ablauf und das Umfeld der Arbeit erklärt und die Rahmenbedingungen definiert.
 Der zweite Teil beinhaltet eine Kurzfassung, ein Kapitel zur Projektmanagementmethode, eine
 Abgrenzung der Arbeit und die Projekt-Dokumentation selbst.
 Am Ende der Arbeit ist die Reflexion und das Fazit aufzufinden.
+Der Inhalt wird in Markdown-Dateien geschrieben. Mit {{< glossary "Hugo" >}} entsteht daraus automatisch die Website und somit auch das {{< glossary "PDF" >}}.
+

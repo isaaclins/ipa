@@ -2,6 +2,8 @@
 title: "Glossar"
 description: "Begriffsdefinitionen und Abkürzungen"
 weight: 6
+chapter: false
+
 ---
 
 <!--
