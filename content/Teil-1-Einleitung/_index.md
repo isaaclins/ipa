@@ -1,7 +1,7 @@
 ---
 title: "Einleitung"
 description: "Einführung und Projektübersicht"
-weight: 1
+weight: 3
 chapter: true
 ---
 
