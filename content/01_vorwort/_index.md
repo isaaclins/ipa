@@ -1,7 +1,7 @@
 ---
 title: "Vorwort"
 description: ""
-weight: 2
+weight: 1
 # chapter: true = Kapitel X + counts in numbering; chapter: false = title only, still in TOC
 chapter: false
 ---
