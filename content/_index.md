@@ -1,5 +1,5 @@
 ---
-title: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+title: "IPA Isaac"
 description: "Individuelle Praktische Arbeit"
 type: "home"
 layout: "home"
