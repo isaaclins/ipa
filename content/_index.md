@@ -1,5 +1,5 @@
 ---
-title: "Exampleasdasdasdasdasdasdasdasd"
+title: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 description: "Individuelle Praktische Arbeit"
 type: "home"
 layout: "home"

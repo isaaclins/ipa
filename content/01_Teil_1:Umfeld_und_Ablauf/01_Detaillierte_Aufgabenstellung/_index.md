@@ -1,5 +1,7 @@
 ---
 title: "Detaillierte Aufgabenstellung"
 description: ""
-weight: 1
+weight: 2
+chapter: false
+
 ---
