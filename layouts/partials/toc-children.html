@@ -1,0 +1,34 @@
+{{- /*
+  Recursive TOC children renderer.
+  Renders child pages/sections as TOC entries with proper numbering.
+  Supports up to 6 levels of nesting.
+
+  Params (passed via dict):
+    .pages    - collection of child pages to render
+    .prefix   - numbering prefix string (e.g., "1", "1.1")
+    .numbered - whether to show numbers
+    .depth    - current nesting depth (starts at 2 for first children)
+*/ -}}
+{{- range $idx, $page := .pages -}}
+{{- $num := add $idx 1 -}}
+{{- $currentPrefix := "" -}}
+{{- if $.numbered -}}
+{{- $currentPrefix = printf "%s.%d" $.prefix $num -}}
+{{- end -}}
+{{- $id := partial "page-id" $page -}}
+<li>
+  <a href="#{{ $id }}">
+    {{- if $.numbered -}}
+    <span class="toc-num">{{ $currentPrefix }}</span>
+    {{- end -}}
+    <span class="toc-title">{{ $page.Title }}</span>
+    <span class="toc-leader" aria-hidden="true"></span>
+    <span class="toc-page"></span>
+  </a>
+  {{- if and $page.IsSection $page.Pages -}}
+  <ul class="toc-subchapters">
+    {{- partial "toc-children" (dict "pages" $page.Pages.ByWeight "prefix" $currentPrefix "numbered" $.numbered "depth" (add $.depth 1)) -}}
+  </ul>
+  {{- end -}}
+</li>
+{{- end -}}

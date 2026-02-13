@@ -272,33 +272,7 @@ Quellenverzeichnis) */ -}}
           </a>
           {{- if .Pages -}}
           <ul class="toc-subchapters">
-            {{- if hasSuffix .Section "arbeitsjournal" -}}
-            {{- range $subNum, $page := .Pages.ByDate -}}
-            <li>
-              <a href="#{{ $page.File.ContentBaseName }}">
-                {{- if $isChapter -}}
-                <span class="toc-num">{{ $tocNum }}.{{ add $subNum 1 }}</span>
-                {{- end -}}
-                <span class="toc-title">{{ $page.Title }}</span>
-                <span class="toc-leader" aria-hidden="true"></span>
-                <span class="toc-page"></span>
-              </a>
-            </li>
-            {{- end -}}
-            {{- else -}}
-            {{- range $subNum, $page := .Pages.ByWeight -}}
-            <li>
-              <a href="#{{ $page.File.ContentBaseName }}">
-                {{- if $isChapter -}}
-                <span class="toc-num">{{ $tocNum }}.{{ add $subNum 1 }}</span>
-                {{- end -}}
-                <span class="toc-title">{{ $page.Title }}</span>
-                <span class="toc-leader" aria-hidden="true"></span>
-                <span class="toc-page"></span>
-              </a>
-            </li>
-            {{- end -}}
-            {{- end -}}
+            {{- partial "toc-children" (dict "pages" .Pages.ByWeight "prefix" (printf "%d" $tocNum) "numbered" $isChapter "depth" 2) -}}
           </ul>
           {{- end -}}
         </div>
@@ -357,8 +331,8 @@ Quellenverzeichnis) */ -}}
     {{- if $isChapter -}}
     {{- $chapterNum = add $chapterNum 1 -}}
     {{- end -}}
+    {{- if $isChapter -}}
     <section id="{{ .Section }}" class="chapter pdf-section">
-      {{- if $isChapter -}}
       {{/* Chapter Title Page with "Kapitel X" */}}
       <div class="chapter-title-page">
         <div class="chapter-number">
@@ -370,46 +344,28 @@ Quellenverzeichnis) */ -}}
         <p class="chapter-description">{{ . }}</p>
         {{ end }}
       </div>
-      {{- else -}}
-      {{/* Section without chapter number (e.g. Vorwort) */}}
-      <div class="chapter-title-page">
-        <h1 class="chapter-title">{{ .Title }}</h1>
-        {{ with .Description }}
-        <p class="chapter-description">{{ . }}</p>
-        {{ end }}
-      </div>
-      {{- end -}}
-
       {{ with .Content }}
       <div class="chapter-intro">{{ . }}</div>
       {{ end }}
     </section>
-
-    {{/* Subchapters - only numbered when parent has chapter: true */}}
-    {{- if hasSuffix .Section "arbeitsjournal" -}}
-    {{- range $subNum, $page := .Pages.ByDate -}}
-    <section id="{{ $page.File.ContentBaseName }}" class="subchapter pdf-section">
-      <header class="subchapter-header">
-        {{- if $isChapter -}}
-        <div class="subchapter-number">{{ $chapterNum }}.{{ add $subNum 1 }}</div>
-        {{- end -}}
-        <h2 class="subchapter-title">{{ $page.Title }}</h2>
-      </header>
-      <div class="subchapter-content">{{ $page.Content }}</div>
-    </section>
-    {{- end -}}
     {{- else -}}
-    {{- range $subNum, $page := .Pages.ByWeight -}}
-    <section id="{{ $page.File.ContentBaseName }}" class="subchapter pdf-section">
+    {{/* Section without chapter number (e.g. Vorwort) - rendered as subsection, no full title page */}}
+    <section id="{{ .Section }}" class="pdf-section">
       <header class="subchapter-header">
-        {{- if $isChapter -}}
-        <div class="subchapter-number">{{ $chapterNum }}.{{ add $subNum 1 }}</div>
-        {{- end -}}
-        <h2 class="subchapter-title">{{ $page.Title }}</h2>
+        <h2 class="subchapter-title">{{ .Title }}</h2>
+        {{ with .Description }}
+        <p class="chapter-description">{{ . }}</p>
+        {{ end }}
       </header>
-      <div class="subchapter-content">{{ $page.Content }}</div>
+      {{ with .Content }}
+      <div class="subchapter-content">{{ . }}</div>
+      {{ end }}
     </section>
     {{- end -}}
+
+    {{/* Subchapters - recursively rendered with proper numbering */}}
+    {{- if .Pages -}}
+    {{- partial "pdf-content-children" (dict "pages" .Pages.ByWeight "prefix" (printf "%d" $chapterNum) "numbered" $isChapter "depth" 2) -}}
     {{- end -}}
     {{- end -}}
     {{- end -}} {{/* ========== ARBEITSJOURNAL
@@ -609,7 +565,7 @@ Quellenverzeichnis) */ -}}
             const href = link.getAttribute("href");
             if (!pageSlot || !href || href.length < 2) return;
 
-            const target = document.getElementById(href.slice(1));
+            const target = document.getElementById(decodeURIComponent(href.slice(1)));
             if (!target) return;
 
             const top = target.getBoundingClientRect().top + window.scrollY;

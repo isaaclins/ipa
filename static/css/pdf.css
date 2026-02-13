@@ -253,31 +253,105 @@
   }
   
   /* ============================================================================
-     Subchapters
+     Subchapters (depth-aware styling)
+     Each depth level gets progressively smaller, greyer, and lighter borders.
      ============================================================================ */
   .subchapter {
     page-break-before: auto;
   }
   
-  .subchapter-header {
-    margin-bottom: 1cm;
-    padding-bottom: 0.5cm;
-    border-bottom: 1pt solid #000;
-  }
-  
-  .subchapter-number {
-    font-size: 12pt;
-    color: #595959;
-    margin-bottom: 0.3cm;
-  }
-  
-  .subchapter-title {
-    font-size: 18pt;
-    margin: 0;
-  }
-  
   .subchapter-content {
     text-align: justify;
+  }
+
+  /* --- Depth 2 (e.g. 1.1) — primary subsection --- */
+  .depth-2 > .subchapter-header {
+    margin-bottom: 0.8cm;
+    padding-bottom: 0.4cm;
+    border-bottom: 1.5pt solid #000;
+  }
+  .depth-2 > .subchapter-header .subchapter-number {
+    font-size: 12pt;
+    color: #333;
+    margin-bottom: 0.2cm;
+  }
+  .depth-2 > .subchapter-header .subchapter-title {
+    font-size: 18pt;
+    font-weight: bold;
+    color: #000;
+    margin: 0;
+  }
+
+  /* --- Depth 3 (e.g. 1.1.1) — secondary subsection --- */
+  .depth-3 > .subchapter-header {
+    margin-bottom: 0.5cm;
+    padding-bottom: 0.25cm;
+    border-bottom: 1pt solid #666;
+  }
+  .depth-3 > .subchapter-header .subchapter-number {
+    font-size: 10pt;
+    color: #555;
+    margin-bottom: 0.15cm;
+  }
+  .depth-3 > .subchapter-header .subchapter-title {
+    font-size: 14pt;
+    font-weight: bold;
+    color: #222;
+    margin: 0;
+  }
+
+  /* --- Depth 4 (e.g. 1.1.1.1) — tertiary subsection --- */
+  .depth-4 > .subchapter-header {
+    margin-bottom: 0.3cm;
+    padding-bottom: 0.15cm;
+    border-bottom: 0.5pt solid #999;
+  }
+  .depth-4 > .subchapter-header .subchapter-number {
+    font-size: 9pt;
+    color: #777;
+    margin-bottom: 0.1cm;
+  }
+  .depth-4 > .subchapter-header .subchapter-title {
+    font-size: 12pt;
+    font-weight: bold;
+    color: #444;
+    margin: 0;
+  }
+
+  /* --- Depth 5 (e.g. 1.1.1.1.1) --- */
+  .depth-5 > .subchapter-header {
+    margin-bottom: 0.2cm;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .depth-5 > .subchapter-header .subchapter-number {
+    font-size: 9pt;
+    color: #888;
+    margin-bottom: 0.05cm;
+  }
+  .depth-5 > .subchapter-header .subchapter-title {
+    font-size: 11pt;
+    font-weight: 600;
+    color: #555;
+    margin: 0;
+  }
+
+  /* --- Depth 6+ (e.g. 1.1.1.1.1.1) --- */
+  .depth-6 > .subchapter-header {
+    margin-bottom: 0.15cm;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .depth-6 > .subchapter-header .subchapter-number {
+    font-size: 9pt;
+    color: #999;
+    margin-bottom: 0;
+  }
+  .depth-6 > .subchapter-header .subchapter-title {
+    font-size: 11pt;
+    font-weight: 600;
+    color: #666;
+    margin: 0;
   }
   
   /* ============================================================================
