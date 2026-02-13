@@ -266,14 +266,16 @@
 
   /* --- Depth 2 (e.g. 1.1) — primary subsection --- */
   .depth-2 > .subchapter-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4cm;
     margin-bottom: 0.8cm;
     padding-bottom: 0.4cm;
     border-bottom: 1.5pt solid #000;
   }
   .depth-2 > .subchapter-header .subchapter-number {
-    font-size: 12pt;
+    font-size: 18pt;
     color: #333;
-    margin-bottom: 0.2cm;
   }
   .depth-2 > .subchapter-header .subchapter-title {
     font-size: 18pt;
@@ -284,14 +286,16 @@
 
   /* --- Depth 3 (e.g. 1.1.1) — secondary subsection --- */
   .depth-3 > .subchapter-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.3cm;
     margin-bottom: 0.5cm;
     padding-bottom: 0.25cm;
     border-bottom: 1pt solid #666;
   }
   .depth-3 > .subchapter-header .subchapter-number {
-    font-size: 10pt;
+    font-size: 14pt;
     color: #555;
-    margin-bottom: 0.15cm;
   }
   .depth-3 > .subchapter-header .subchapter-title {
     font-size: 14pt;
@@ -302,14 +306,16 @@
 
   /* --- Depth 4 (e.g. 1.1.1.1) — tertiary subsection --- */
   .depth-4 > .subchapter-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.3cm;
     margin-bottom: 0.3cm;
     padding-bottom: 0.15cm;
     border-bottom: 0.5pt solid #999;
   }
   .depth-4 > .subchapter-header .subchapter-number {
-    font-size: 9pt;
+    font-size: 12pt;
     color: #777;
-    margin-bottom: 0.1cm;
   }
   .depth-4 > .subchapter-header .subchapter-title {
     font-size: 12pt;
@@ -320,14 +326,16 @@
 
   /* --- Depth 5 (e.g. 1.1.1.1.1) --- */
   .depth-5 > .subchapter-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.2cm;
     margin-bottom: 0.2cm;
     padding-bottom: 0;
     border-bottom: none;
   }
   .depth-5 > .subchapter-header .subchapter-number {
-    font-size: 9pt;
+    font-size: 11pt;
     color: #888;
-    margin-bottom: 0.05cm;
   }
   .depth-5 > .subchapter-header .subchapter-title {
     font-size: 11pt;
@@ -338,14 +346,16 @@
 
   /* --- Depth 6+ (e.g. 1.1.1.1.1.1) --- */
   .depth-6 > .subchapter-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.2cm;
     margin-bottom: 0.15cm;
     padding-bottom: 0;
     border-bottom: none;
   }
   .depth-6 > .subchapter-header .subchapter-number {
-    font-size: 9pt;
+    font-size: 11pt;
     color: #999;
-    margin-bottom: 0;
   }
   .depth-6 > .subchapter-header .subchapter-title {
     font-size: 11pt;
